@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sync - Your Personal Stylist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comfortaa', cursive;
+            background: #FAFAFA;
+            color: #2C2C2C;
+            overflow-x: hidden;
+        }
+
+        /* Hamburger Menu */
+        .menu-icon {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1000;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .menu-line {
+            width: 30px;
+            height: 3px;
+            background: #2C2C2C;
+            transition: all 0.3s ease;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            border: 2px solid #2C2C2C;
+            padding: 80px 30px 30px;
+            z-index: 999;
+            transition: left 0.4s ease;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-item {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar-item:hover {
+            color: #FF9B85;
+        }
+
+        /* Main Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background: #FAFAFA;
+        }
+
+        .logo {
+            font-family: 'Comfortaa', cursive;
+            font-size: 7rem;
+            font-weight: 700;
+            color: #FF9B85;
+            margin-bottom: 0.5rem;
+        }
+
+        .underline {
+            width: 200px;
+            height: 2px;
+            background: #2C2C2C;
+            margin: 0 auto 2rem;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 3rem;
+            color: #666;
+        }
+
+        .upload-btn {
+            background: white;
+            border: 2px solid #2C2C2C;
+            padding: 1rem 3rem;
+            font-family: 'Comfortaa', cursive;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .upload-btn:hover {
+            background: #FF9B85;
+            color: white;
+            border-color: #FF9B85;
+        }
+
+        /* New Recommendations Section */
+        .recommendations {
+            padding: 4rem 2rem;
+            background: #FF9B85;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-title {
+            font-family: 'Comfortaa', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #2C2C2C;
+        }
+
+        .see-all {
+            font-size: 1.3rem;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+            color: #2C2C2C;
+            transition: color 0.3s ease;
+        }
+
+        .see-all:hover {
+            color: white;
+        }
+
+        .brands-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .brand-box {
+            background: white;
+            border: 2px solid #2C2C2C;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .brand-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .brand-logo {
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .brand-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Closet Analysis */
+        .closet-analysis {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .analysis-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .analysis-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: left;
+        }
+
+        .brand-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5rem 0;
+            border-bottom: 2px solid #F0F0F0;
+            font-size: 1.1rem;
+        }
+
+        .brand-item:last-child {
+            border-bottom: none;
+        }
+
+        .brand-item-name {
+            font-weight: 700;
+        }
+
+        .brand-item-stats {
+            color: #666;
+            font-weight: 400;
+        }
+
+        /* Recent Purchases */
+        .recent-purchases {
+            padding: 4rem 2rem;
+            background: #FF9B85;
+        }
+
+        .purchases-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .purchase-box {
+            background: white;
+            border: 2px solid #2C2C2C;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .purchase-date {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #666;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2C2C2C;
+            color: #F5F1E8;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-tagline {
+            font-size: 1.5rem;
+            font-weight: 500;
+            font-style: italic;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .footer-copy {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.6;
+        }
+
+        /* Popup Modal */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup.active {
+            display: flex;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 3rem;
+            border: 3px solid #2C2C2C;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            animation: popupSlide 0.4s ease-out;
+        }
+
+        @keyframes popupSlide {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .popup-close:hover {
+            color: #2C2C2C;
+        }
+
+        .popup-text {
+            font-size: 1.3rem;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 4rem;
+            }
+
+            .section-title, .analysis-title {
+                font-size: 2rem;
+            }
+
+            .brands-grid, .purchases-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hamburger Menu Icon -->
+    <div class="menu-icon" onclick="toggleSidebar()">
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-item" onclick="showPopup()">YOUR CLOSET</div>
+        <div class="sidebar-item" onclick="showPopup()">CLOSET ANALYSES</div>
+        <div class="sidebar-item" onclick="scrollToSection('recommendations')">NEW RELEASES</div>
+        <div class="sidebar-item" onclick="scrollToSection('purchases')">PURCHASES</div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="logo">Sync</h1>
+        <div class="underline"></div>
+        <p class="tagline">YOUR PERSONAL STYLIST</p>
+        <p class="coming-soon">COMING SOON.</p>
+        <button class="upload-btn" onclick="showPopup()">
+            <span>⬆</span>
+            <span>UPLOAD</span>
+        </button>
+    </section>
+
+    <!-- New Recommendations -->
+    <section class="recommendations" id="recommendations">
+        <div class="section-header">
+            <h2 class="section-title">New<br>Recommendations</h2>
+            <div class="see-all" onclick="showSeeAllPopup()">See all →</div>
+        </div>
+        <div class="brands-grid">
+            <div class="brand-box">
+                <img src="https://logos-world.net/wp-content/uploads/2020/12/Hollister-Logo.png" alt="Hollister" class="brand-logo">
+                <div class="brand-emoji">👕</div>
+            </div>
+            <div class="brand-box">
+                <img src="https://logos-world.net/wp-content/uploads/2020/04/Vans-Logo.png" alt="Vans" class="brand-logo">
+                <div class="brand-emoji">👟</div>
+            </div>
+            <div class="brand-box">
+                <img src="https://logos-world.net/wp-content/uploads/2022/03/Aritzia-Logo.png" alt="Aritzia" class="brand-logo">
+                <div class="brand-emoji">👚</div>
+            </div>
+            <div class="brand-box">
+                <img src="https://logos-world.net/wp-content/uploads/2020/11/American-Eagle-Logo.png" alt="American Eagle" class="brand-logo">
+                <div class="brand-emoji">👖</div>
+            </div>
+            <div class="brand-box">
+                <img src="https://logos-world.net/wp-content/uploads/2022/04/Shein-Logo.png" alt="Shein" class="brand-logo">
+                <div class="brand-emoji">👗</div>
+            </div>
+            <div class="brand-box">
+                <img src="https://logos-world.net/wp-content/uploads/2021/03/Hoka-Logo.png" alt="Hoka" class="brand-logo">
+                <div class="brand-emoji">👟</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Closet Analysis -->
+    <section class="closet-analysis">
+        <div class="analysis-container">
+            <h2 class="analysis-title">Your Closet Analysis</h2>
+            <div class="brand-item">
+                <div>
+                    <div class="brand-item-name">Everlane</div>
+                    <div class="brand-item-stats">8 items purchased • 7 worn regularly</div>
+                </div>
+                <div class="brand-item-stats">88% wear rate</div>
+            </div>
+            <div class="brand-item">
+                <div>
+                    <div class="brand-item-name">Nike</div>
+                    <div class="brand-item-stats">5 items purchased • 5 worn regularly</div>
+                </div>
+                <div class="brand-item-stats">100% wear rate</div>
+            </div>
+            <div class="brand-item">
+                <div>
+                    <div class="brand-item-name">Zara</div>
+                    <div class="brand-item-stats">12 items purchased • 6 worn regularly</div>
+                </div>
+                <div class="brand-item-stats">50% wear rate</div>
+            </div>
+            <div class="brand-item">
+                <div>
+                    <div class="brand-item-name">Patagonia</div>
+                    <div class="brand-item-stats">3 items purchased • 3 worn regularly</div>
+                </div>
+                <div class="brand-item-stats">100% wear rate</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Purchases -->
+    <section class="recent-purchases" id="purchases">
+        <div class="section-header">
+            <h2 class="section-title">Recent Purchases</h2>
+        </div>
+        <div class="purchases-grid">
+            <div class="purchase-box">
+                <img src="https://logos-world.net/wp-content/uploads/2020/04/Vans-Logo.png" alt="Vans" class="brand-logo">
+                <div class="brand-emoji">👟</div>
+                <div class="purchase-date">Purchased: Jan 15, 2026</div>
+            </div>
+            <div class="purchase-box">
+                <img src="https://logos-world.net/wp-content/uploads/2020/12/Hollister-Logo.png" alt="Hollister" class="brand-logo">
+                <div class="brand-emoji">👕</div>
+                <div class="purchase-date">Purchased: Jan 10, 2026</div>
+            </div>
+            <div class="purchase-box">
+                <img src="https://logos-world.net/wp-content/uploads/2022/03/Aritzia-Logo.png" alt="Aritzia" class="brand-logo">
+                <div class="brand-emoji">🧥</div>
+                <div class="purchase-date">Purchased: Dec 28, 2025</div>
+            </div>
+            <div class="purchase-box">
+                <img src="https://logos-world.net/wp-content/uploads/2021/03/Hoka-Logo.png" alt="Hoka" class="brand-logo">
+                <div class="brand-emoji">👟</div>
+                <div class="purchase-date">Purchased: Dec 20, 2025</div>
+            </div>
+            <div class="purchase-box">
+                <img src="https://logos-world.net/wp-content/uploads/2022/04/Shein-Logo.png" alt="Shein" class="brand-logo">
+                <div class="brand-emoji">👗</div>
+                <div class="purchase-date">Purchased: Dec 15, 2025</div>
+            </div>
+            <div class="purchase-box">
+                <img src="https://logos-world.net/wp-content/uploads/2020/11/American-Eagle-Logo.png" alt="American Eagle" class="brand-logo">
+                <div class="brand-emoji">👖</div>
+                <div class="purchase-date">Purchased: Dec 5, 2025</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-tagline">We're in sync with you</p>
+        <p class="footer-copy">© 2026 Sync. Your personal stylist.</p>
+    </footer>
+
+    <!-- Popup Modal -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="popup-close" onclick="closePopup()">×</span>
+            <p class="popup-text">Recommendations can be viewed after logging in. Thank you for your interest in Sync. Coming soon.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function showPopup() {
+            const popup = document.getElementById('popup');
+            popup.classList.add('active');
+            // Close sidebar if open
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.remove('open');
+        }
+
+        function showSeeAllPopup() {
+            showPopup();
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            popup.classList.remove('active');
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+            // Close sidebar
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.remove('open');
+        }
+
+        // Close popup when clicking outside
+        window.onclick = function(event) {
+            const popup = document.getElementById('popup');
+            if (event.target === popup) {
+                closePopup();
+            }
+        }
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuIcon = document.querySelector('.menu-icon');
+            
+            if (!sidebar.contains(event.target) && !menuIcon.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

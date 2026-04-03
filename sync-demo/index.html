@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sync - Your Personal Stylist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Comfortaa',cursive; background:#FAFAFA; color:#2C2C2C; overflow-x:hidden; }
+        .menu-icon { position:fixed; top:30px; left:30px; z-index:1000; cursor:pointer; display:flex; flex-direction:column; gap:6px; }
+        .menu-line { width:30px; height:3px; background:#2C2C2C; transition:all 0.3s ease; }
+        .sidebar { position:fixed; top:0; left:-300px; width:300px; height:100vh; background:white; border:2px solid #2C2C2C; padding:80px 30px 30px; z-index:999; transition:left 0.4s ease; box-shadow:5px 0 15px rgba(0,0,0,0.1); }
+        .sidebar.open { left:0; }
+        .sidebar-item { font-size:1.4rem; font-weight:600; margin-bottom:20px; cursor:pointer; transition:color 0.3s ease; }
+        .sidebar-item:hover { color:#FF9B85; }
+        .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:2rem; background:#FAFAFA; }
+        .logo { font-family:'Comfortaa',cursive; font-size:7rem; font-weight:700; color:#FF9B85; margin-bottom:0.5rem; }
+        .underline { width:200px; height:2px; background:#2C2C2C; margin:0 auto 2rem; }
+        .tagline { font-size:1.5rem; font-weight:500; margin-bottom:1rem; }
+        .coming-soon { font-size:1.3rem; font-weight:400; margin-bottom:3rem; color:#666; }
+        .upload-btn { background:white; border:2px solid #2C2C2C; padding:1rem 3rem; font-family:'Comfortaa',cursive; font-size:1.2rem; font-weight:600; cursor:pointer; transition:all 0.3s ease; display:flex; align-items:center; gap:10px; }
+        .upload-btn:hover { background:#FF9B85; color:white; border-color:#FF9B85; }
+        .recommendations { padding:4rem 2rem; background:#FF9B85; }
+        .section-header { display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:0 auto 3rem; }
+        .section-title { font-family:'Comfortaa',cursive; font-size:2.5rem; font-weight:700; letter-spacing:0.05em; color:#2C2C2C; }
+        .see-all { font-size:1.3rem; font-weight:500; text-decoration:underline; cursor:pointer; color:#2C2C2C; transition:color 0.3s ease; }
+        .see-all:hover { color:white; }
+        .brands-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem; }
+        .brand-box { background:white; border:2px solid #2C2C2C; padding:2rem; text-align:center; transition:transform 0.3s ease; }
+        .brand-box:hover { transform:translateY(-5px); }
+        .brand-logo { height:60px; object-fit:contain; margin-bottom:1rem; }
+        .brand-emoji { font-size:4rem; margin-bottom:1rem; }
+        .closet-analysis { padding:6rem 2rem; background:white; }
+        .analysis-container { max-width:1000px; margin:0 auto; }
+        .analysis-title { font-size:2.5rem; font-weight:700; margin-bottom:3rem; text-align:left; }
+        .brand-item { display:flex; justify-content:space-between; padding:1.5rem 0; border-bottom:2px solid #F0F0F0; font-size:1.1rem; }
+        .brand-item:last-child { border-bottom:none; }
+        .brand-item-name { font-weight:700; }
+        .brand-item-stats { color:#666; font-weight:400; }
+        .recent-purchases { padding:4rem 2rem; background:#FF9B85; }
+        .purchases-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem; }
+        .purchase-box { background:white; border:2px solid #2C2C2C; padding:2rem; text-align:center; transition:transform 0.3s ease; }
+        .purchase-box:hover { transform:translateY(-5px); }
+        .purchase-date { font-size:0.9rem; color:#666; margin-top:1rem; }
+        .footer { padding:3rem 2rem; background:#2C2C2C; color:white; text-align:center; }
+        .footer-tagline { font-size:1.5rem; font-weight:600; margin-bottom:1rem; }
+        .footer-copy { font-size:0.9rem; color:#999; }
+        .popup { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000; justify-content:center; align-items:center; }
+        .popup.active { display:flex; }
+        .popup-content { background:white; padding:3rem; border:3px solid #2C2C2C; max-width:500px; width:90%; text-align:center; position:relative; animation:popupSlide 0.4s ease-out; }
+        @keyframes popupSlide { from{transform:translateY(-50px);opacity:0} to{transform:translateY(0);opacity:1} }
+        .popup-close { position:absolute; top:15px; right:20px; font-size:2rem; cursor:pointer; color:#666; }
+        .popup-close:hover { color:#2C2C2C; }
+        .popup-text { font-size:1.3rem; font-weight:400; line-height:1.6; margin-top:1rem; }
+
+        /* IMAGE PICKER */
+        #imagePicker { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:3000; justify-content:center; align-items:center; padding:1rem; }
+        #imagePicker.active { display:flex; }
+        .picker-panel { background:white; border:3px solid #2C2C2C; width:100%; max-width:780px; max-height:90vh; overflow-y:auto; padding:2.5rem; position:relative; animation:popupSlide 0.35s ease-out; }
+        .picker-title { font-size:1.8rem; font-weight:700; margin-bottom:0.4rem; }
+        .picker-subtitle { font-size:0.95rem; color:#888; margin-bottom:1.8rem; }
+        .picker-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1rem; margin-bottom:1.8rem; }
+        .picker-img-wrap { position:relative; aspect-ratio:3/4; border:3px solid transparent; border-radius:4px; overflow:hidden; cursor:pointer; transition:border-color 0.2s,transform 0.2s; }
+        .picker-img-wrap:hover { transform:scale(1.02); }
+        .picker-img-wrap.selected { border-color:#FF9B85; }
+        .picker-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+        .picker-check { position:absolute; top:8px; right:8px; width:28px; height:28px; background:#FF9B85; border-radius:50%; display:none; align-items:center; justify-content:center; color:white; font-size:1rem; font-weight:700; box-shadow:0 2px 6px rgba(0,0,0,0.25); }
+        .picker-img-wrap.selected .picker-check { display:flex; }
+        .picker-actions { display:flex; gap:1rem; justify-content:flex-end; }
+        .btn-cancel { background:white; border:2px solid #2C2C2C; padding:0.75rem 2rem; font-family:'Comfortaa',cursive; font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.2s; }
+        .btn-cancel:hover { background:#F0F0F0; }
+        .btn-add { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.75rem 2rem; font-family:'Comfortaa',cursive; font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.2s; }
+        .btn-add:hover { background:#ff8570; border-color:#ff8570; }
+        .btn-add:disabled { opacity:0.4; cursor:default; }
+
+        /* ALBUM */
+        #albumView { display:none; position:fixed; inset:0; background:#FAFAFA; z-index:4000; flex-direction:column; overflow:hidden; }
+        #albumView.active { display:flex; }
+        .album-header { background:white; border-bottom:2px solid #2C2C2C; padding:1.4rem 2rem; display:flex; align-items:center; gap:1.5rem; flex-shrink:0; }
+        .album-back { font-size:1.5rem; cursor:pointer; color:#2C2C2C; line-height:1; transition:color 0.2s; }
+        .album-back:hover { color:#FF9B85; }
+        .album-header-title { font-size:1.6rem; font-weight:700; }
+        .album-count { font-size:0.9rem; color:#999; margin-left:auto; }
+        .album-body { flex:1; overflow-y:auto; padding:2rem; }
+        .album-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1.2rem; max-width:1300px; margin:0 auto; }
+        .album-card { aspect-ratio:3/4; position:relative; border:2px solid #E0E0E0; border-radius:6px; overflow:hidden; cursor:pointer; transition:transform 0.25s,box-shadow 0.25s; }
+        .album-card:hover { transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,0,0,0.12); }
+        .album-card img { width:100%; height:100%; object-fit:cover; display:block; }
+        .album-card-date { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(0,0,0,0.55)); color:white; font-size:0.78rem; padding:1.5rem 0.7rem 0.6rem; }
+        .album-empty { text-align:center; padding:5rem 2rem; color:#999; }
+        .album-empty-icon { font-size:4rem; margin-bottom:1rem; }
+        .album-empty-text { font-size:1.2rem; }
+
+        /* OUTFIT DETAIL */
+        #outfitDetail { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:5000; justify-content:center; align-items:center; padding:1rem; }
+        #outfitDetail.active { display:flex; }
+        .outfit-panel { background:white; border:3px solid #2C2C2C; max-width:860px; width:100%; max-height:90vh; display:flex; flex-direction:row; overflow:hidden; position:relative; animation:outfitReveal 0.4s cubic-bezier(0.22,1,0.36,1); }
+        @keyframes outfitReveal { from{opacity:0;transform:scale(0.94) translateY(12px)} to{opacity:1;transform:scale(1) translateY(0)} }
+        .outfit-img-side { flex:0 0 46%; position:relative; overflow:hidden; }
+        .outfit-img-side img { width:100%; height:100%; object-fit:cover; display:block; }
+        .outfit-info-side { flex:1; padding:2.5rem 2rem 2rem; overflow-y:auto; display:flex; flex-direction:column; }
+        .outfit-detail-close { position:absolute; top:14px; right:18px; font-size:2rem; cursor:pointer; color:#888; z-index:10; line-height:1; }
+        .outfit-detail-close:hover { color:#2C2C2C; }
+        .outfit-date-badge { font-size:0.8rem; color:#999; margin-bottom:1rem; }
+        .outfit-info-title { font-size:1.6rem; font-weight:700; margin-bottom:1.5rem; color:#2C2C2C; }
+        .outfit-items-list { list-style:none; flex:1; }
+        .outfit-items-list li { padding:0.9rem 0; border-bottom:1px solid #F0F0F0; font-size:0.97rem; line-height:1.55; display:flex; gap:0.7rem; align-items:flex-start; }
+        .outfit-items-list li:last-child { border-bottom:none; }
+        .item-bullet { width:8px; height:8px; border-radius:50%; background:#FF9B85; flex-shrink:0; margin-top:6px; }
+
+        /* TOAST */
+        .toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(80px); background:#2C2C2C; color:white; padding:0.9rem 2rem; font-family:'Comfortaa',cursive; font-size:1rem; font-weight:600; border-radius:2px; z-index:9999; transition:transform 0.4s cubic-bezier(0.22,1,0.36,1); pointer-events:none; white-space:nowrap; }
+        .toast.show { transform:translateX(-50%) translateY(0); }
+
+        @media (max-width:768px) {
+            .logo { font-size:4rem; }
+            .section-title,.analysis-title { font-size:2rem; }
+            .brands-grid,.purchases-grid { grid-template-columns:1fr; }
+            .outfit-panel { flex-direction:column; }
+            .outfit-img-side { flex:0 0 50vh; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="menu-icon" onclick="toggleSidebar()">
+    <div class="menu-line"></div>
+    <div class="menu-line"></div>
+    <div class="menu-line"></div>
+</div>
+
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-item" onclick="showPopup()">YOUR CLOSET</div>
+    <div class="sidebar-item" onclick="showPopup()">CLOSET ANALYSES</div>
+    <div class="sidebar-item" onclick="openAlbum()">ALBUM</div>
+    <div class="sidebar-item" onclick="scrollToSection('recommendations')">NEW RELEASES</div>
+    <div class="sidebar-item" onclick="scrollToSection('purchases')">PURCHASES</div>
+</div>
+
+<section class="hero">
+    <h1 class="logo">Sync</h1>
+    <div class="underline"></div>
+    <p class="tagline">YOUR PERSONAL STYLIST</p>
+    <p class="coming-soon">COMING SOON.</p>
+    <button class="upload-btn" onclick="openImagePicker()">
+        <span>⬆</span>
+        <span>UPLOAD</span>
+    </button>
+</section>
+
+<section class="recommendations" id="recommendations">
+    <div class="section-header">
+        <h2 class="section-title">New<br>Recommendations</h2>
+        <div class="see-all" onclick="showSeeAllPopup()">See all →</div>
+    </div>
+    <div class="brands-grid">
+        <div class="brand-box"><img src="https://logos-world.net/wp-content/uploads/2020/12/Hollister-Logo.png" alt="Hollister" class="brand-logo"><div class="brand-emoji">👕</div></div>
+        <div class="brand-box"><img src="https://logos-world.net/wp-content/uploads/2020/04/Vans-Logo.png" alt="Vans" class="brand-logo"><div class="brand-emoji">👟</div></div>
+        <div class="brand-box"><img src="https://logos-world.net/wp-content/uploads/2022/03/Aritzia-Logo.png" alt="Aritzia" class="brand-logo"><div class="brand-emoji">👚</div></div>
+        <div class="brand-box"><img src="https://logos-world.net/wp-content/uploads/2020/11/American-Eagle-Logo.png" alt="American Eagle" class="brand-logo"><div class="brand-emoji">👖</div></div>
+        <div class="brand-box"><img src="https://logos-world.net/wp-content/uploads/2022/04/Shein-Logo.png" alt="Shein" class="brand-logo"><div class="brand-emoji">👗</div></div>
+        <div class="brand-box"><img src="https://logos-world.net/wp-content/uploads/2021/03/Hoka-Logo.png" alt="Hoka" class="brand-logo"><div class="brand-emoji">👟</div></div>
+    </div>
+</section>
+
+<section class="closet-analysis">
+    <div class="analysis-container">
+        <h2 class="analysis-title">Your Closet Analysis</h2>
+        <div class="brand-item"><div><div class="brand-item-name">Everlane</div><div class="brand-item-stats">8 items purchased • 7 worn regularly</div></div><div class="brand-item-stats">88% wear rate</div></div>
+        <div class="brand-item"><div><div class="brand-item-name">Nike</div><div class="brand-item-stats">5 items purchased • 5 worn regularly</div></div><div class="brand-item-stats">100% wear rate</div></div>
+        <div class="brand-item"><div><div class="brand-item-name">Zara</div><div class="brand-item-stats">12 items purchased • 6 worn regularly</div></div><div class="brand-item-stats">50% wear rate</div></div>
+        <div class="brand-item"><div><div class="brand-item-name">Patagonia</div><div class="brand-item-stats">3 items purchased • 3 worn regularly</div></div><div class="brand-item-stats">100% wear rate</div></div>
+    </div>
+</section>
+
+<section class="recent-purchases" id="purchases">
+    <div class="section-header"><h2 class="section-title">Recent Purchases</h2></div>
+    <div class="purchases-grid">
+        <div class="purchase-box"><img src="https://logos-world.net/wp-content/uploads/2020/04/Vans-Logo.png" alt="Vans" class="brand-logo"><div class="brand-emoji">👟</div><div class="purchase-date">Purchased: Jan 15, 2026</div></div>
+        <div class="purchase-box"><img src="https://logos-world.net/wp-content/uploads/2020/12/Hollister-Logo.png" alt="Hollister" class="brand-logo"><div class="brand-emoji">👕</div><div class="purchase-date">Purchased: Jan 10, 2026</div></div>
+        <div class="purchase-box"><img src="https://logos-world.net/wp-content/uploads/2022/03/Aritzia-Logo.png" alt="Aritzia" class="brand-logo"><div class="brand-emoji">🧥</div><div class="purchase-date">Purchased: Dec 28, 2025</div></div>
+        <div class="purchase-box"><img src="https://logos-world.net/wp-content/uploads/2021/03/Hoka-Logo.png" alt="Hoka" class="brand-logo"><div class="brand-emoji">👟</div><div class="purchase-date">Purchased: Dec 20, 2025</div></div>
+        <div class="purchase-box"><img src="https://logos-world.net/wp-content/uploads/2022/04/Shein-Logo.png" alt="Shein" class="brand-logo"><div class="brand-emoji">👗</div><div class="purchase-date">Purchased: Dec 15, 2025</div></div>
+        <div class="purchase-box"><img src="https://logos-world.net/wp-content/uploads/2020/11/American-Eagle-Logo.png" alt="American Eagle" class="brand-logo"><div class="brand-emoji">👖</div><div class="purchase-date">Purchased: Dec 5, 2025</div></div>
+    </div>
+</section>
+
+<footer class="footer">
+    <p class="footer-tagline">We're in sync with you</p>
+    <p class="footer-copy">© 2026 Sync. Your personal stylist.</p>
+</footer>
+
+<!-- Generic Popup -->
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <span class="popup-close" onclick="closePopup()">×</span>
+        <p class="popup-text">Recommendations can be viewed after logging in. Thank you for your interest in Sync. Coming soon.</p>
+    </div>
+</div>
+
+<!-- Image Picker -->
+<div id="imagePicker">
+    <div class="picker-panel">
+        <span class="popup-close" onclick="closeImagePicker()">×</span>
+        <h2 class="picker-title">Select Outfit Photos</h2>
+        <p class="picker-subtitle">Choose one or more fit pics to add to your Album.</p>
+        <div class="picker-grid" id="pickerGrid"></div>
+        <div class="picker-actions">
+            <button class="btn-cancel" onclick="closeImagePicker()">Cancel</button>
+            <button class="btn-add" id="btnAddToAlbum" onclick="addSelectedToAlbum()" disabled>Add to Album</button>
+        </div>
+    </div>
+</div>
+
+<!-- Album View -->
+<div id="albumView">
+    <div class="album-header">
+        <span class="album-back" onclick="closeAlbum()">←</span>
+        <span class="album-header-title">Album</span>
+        <span class="album-count" id="albumCount"></span>
+    </div>
+    <div class="album-body">
+        <div class="album-grid" id="albumGrid"></div>
+        <div class="album-empty" id="albumEmpty" style="display:none;">
+            <div class="album-empty-icon">📷</div>
+            <div class="album-empty-text">No outfits yet. Hit Upload to add your first look!</div>
+        </div>
+    </div>
+</div>
+
+<!-- Outfit Detail -->
+<div id="outfitDetail">
+    <div class="outfit-panel">
+        <span class="outfit-detail-close" onclick="closeOutfitDetail()">×</span>
+        <div class="outfit-img-side">
+            <img id="outfitDetailImg" src="" alt="Outfit">
+        </div>
+        <div class="outfit-info-side">
+            <p class="outfit-date-badge" id="outfitDetailDate"></p>
+            <h3 class="outfit-info-title">Outfit Details</h3>
+            <ul class="outfit-items-list" id="outfitDetailItems"></ul>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const OUTFITS = [
+    {
+        id: 1,
+        url: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80',
+        label: 'Outfit 1',
+        items: [
+            'Black oversized blazer from Zara, size S',
+            'White fitted crop tee from Aritzia, size XS',
+            'High-waist straight-leg jeans from Levi\'s, size 26',
+            'White chunky sneakers from New Balance 550, size 7'
+        ]
+    },
+    {
+        id: 2,
+        url: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&q=80',
+        label: 'Outfit 2',
+        items: [
+            'Rust-orange knit sweater from Free People, size S',
+            'Pleated mini skirt from Zara, size XS',
+            'Sheer tights from H&M',
+            'Ankle boots from Steve Madden, size 7.5',
+            'Gold layered necklaces from Mejuri'
+        ]
+    },
+    {
+        id: 3,
+        url: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80',
+        label: 'Outfit 3',
+        items: [
+            'Pink satin slip dress from Anthropologie, size S',
+            'Denim jacket from American Eagle, size M',
+            'Strappy heeled sandals from ALDO, size 7',
+            'Small leather shoulder bag from Coach'
+        ]
+    },
+    {
+        id: 4,
+        url: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80',
+        label: 'Outfit 4',
+        items: [
+            'Black v-neck crop top from Hollister, size S',
+            'Super dark baggy jeans from Levi\'s, size 32',
+            'Doc Martens 1460 boots in black',
+            'Black leather belt from Urban Outfitters',
+            'Silver hoop earrings from ASOS'
+        ]
+    },
+    {
+        id: 5,
+        url: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600&q=80',
+        label: 'Outfit 5',
+        items: [
+            'Forest green cargo pants from Urban Outfitters, size 28',
+            'Cropped white hoodie from Champion, size S',
+            'Air Force 1s from Nike, size 7',
+            'Beige baseball cap from Carhartt'
+        ]
+    },
+    {
+        id: 6,
+        url: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&q=80',
+        label: 'Outfit 6',
+        items: [
+            'Maxi floral wrap dress from Reformation, size S',
+            'Strappy flat sandals from Sam Edelman, size 7',
+            'Woven straw hat from Target',
+            'Rattan mini bag from Anthropologie'
+        ]
+    },
+    {
+        id: 7,
+        url: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80',
+        label: 'Outfit 7',
+        items: [
+            'Camel trench coat from Everlane, size S',
+            'Black turtleneck from COS, size XS',
+            'Wide-leg trousers from Zara, size XS',
+            'Pointed-toe heels from & Other Stories, size 7',
+            'Mini leather tote from Polene'
+        ]
+    },
+    {
+        id: 8,
+        url: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=80',
+        label: 'Outfit 8',
+        items: [
+            'Ribbed matching set (top & shorts) from Skims, size S',
+            'Sporty sneakers from Adidas Samba, size 7',
+            'Gold huggie earrings from Mejuri',
+            'Mini backpack from Herschel in black'
+        ]
+    },
+    {
+        id: 9,
+        url: 'https://images.unsplash.com/photo-1550614000-4895a10e1bfd?w=600&q=80',
+        label: 'Outfit 9',
+        items: [
+            'Leather moto jacket from AllSaints, size S',
+            'Black band tee (vintage), size M',
+            'Distressed skinny jeans from Abercrombie, size 26',
+            'Chelsea boots from Dr. Martens, size 7'
+        ]
+    },
+    {
+        id: 10,
+        url: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80',
+        label: 'Outfit 10',
+        items: [
+            'Pastel lilac co-ord blazer & trousers from ASOS, size 6',
+            'White strappy tank from Brandy Melville, one size',
+            'White kitten heels from Zara, size 7',
+            'Pearl necklace from H&M',
+            'Micro tote in white from Charles & Keith'
+        ]
+    }
+];
+
+let album = [];
+let selectedIds = new Set();
+
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+}
+
+function showPopup() {
+    document.getElementById('popup').classList.add('active');
+    document.getElementById('sidebar').classList.remove('open');
+}
+
+function showSeeAllPopup() { showPopup(); }
+
+function closePopup() {
+    document.getElementById('popup').classList.remove('active');
+}
+
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('sidebar').classList.remove('open');
+}
+
+window.onclick = function(e) {
+    if (e.target === document.getElementById('popup')) closePopup();
+    if (e.target === document.getElementById('imagePicker')) closeImagePicker();
+    if (e.target === document.getElementById('outfitDetail')) closeOutfitDetail();
+};
+
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('sidebar');
+    const menuIcon = document.querySelector('.menu-icon');
+    if (!sidebar.contains(e.target) && !menuIcon.contains(e.target)) {
+        sidebar.classList.remove('open');
+    }
+});
+
+function openImagePicker() {
+    selectedIds.clear();
+    renderPickerGrid();
+    document.getElementById('imagePicker').classList.add('active');
+    document.getElementById('sidebar').classList.remove('open');
+}
+
+function closeImagePicker() {
+    document.getElementById('imagePicker').classList.remove('active');
+}
+
+function renderPickerGrid() {
+    const grid = document.getElementById('pickerGrid');
+    grid.innerHTML = '';
+    OUTFITS.forEach(outfit => {
+        const wrap = document.createElement('div');
+        wrap.className = 'picker-img-wrap';
+        wrap.dataset.id = outfit.id;
+        wrap.innerHTML = '<img src="' + outfit.url + '" alt="' + outfit.label + '" loading="lazy"><div class="picker-check">✓</div>';
+        wrap.addEventListener('click', () => togglePickerSelect(outfit.id));
+        grid.appendChild(wrap);
+    });
+    updateAddButton();
+}
+
+function togglePickerSelect(id) {
+    if (selectedIds.has(id)) { selectedIds.delete(id); } else { selectedIds.add(id); }
+    document.querySelectorAll('.picker-img-wrap').forEach(wrap => {
+        wrap.classList.toggle('selected', selectedIds.has(parseInt(wrap.dataset.id)));
+    });
+    updateAddButton();
+}
+
+function updateAddButton() {
+    const btn = document.getElementById('btnAddToAlbum');
+    btn.disabled = selectedIds.size === 0;
+    btn.textContent = selectedIds.size > 0 ? 'Add ' + selectedIds.size + ' to Album' : 'Add to Album';
+}
+
+function addSelectedToAlbum() {
+    const now = new Date();
+    selectedIds.forEach(id => {
+        if (!album.find(e => e.outfitId === id)) {
+            album.push({ outfitId: id, addedAt: new Date(now) });
+        }
+    });
+    album.sort((a, b) => a.addedAt - b.addedAt);
+    const count = selectedIds.size;
+    closeImagePicker();
+    selectedIds.clear();
+    showToast(count + ' outfit' + (count > 1 ? 's' : '') + ' added to your Album!');
+}
+
+function openAlbum() {
+    document.getElementById('sidebar').classList.remove('open');
+    renderAlbum();
+    document.getElementById('albumView').classList.add('active');
+}
+
+function closeAlbum() {
+    document.getElementById('albumView').classList.remove('active');
+}
+
+function renderAlbum() {
+    const grid = document.getElementById('albumGrid');
+    const empty = document.getElementById('albumEmpty');
+    const countEl = document.getElementById('albumCount');
+    grid.innerHTML = '';
+    if (album.length === 0) {
+        empty.style.display = 'block';
+        grid.style.display = 'none';
+        countEl.textContent = '0 outfits';
+        return;
+    }
+    empty.style.display = 'none';
+    grid.style.display = 'grid';
+    countEl.textContent = album.length + ' outfit' + (album.length !== 1 ? 's' : '');
+    [...album].reverse().forEach(entry => {
+        const outfit = OUTFITS.find(o => o.id === entry.outfitId);
+        if (!outfit) return;
+        const card = document.createElement('div');
+        card.className = 'album-card';
+        const dateStr = entry.addedAt.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+        card.innerHTML = '<img src="' + outfit.url + '" alt="' + outfit.label + '" loading="lazy"><div class="album-card-date">Added ' + dateStr + '</div>';
+        card.addEventListener('click', () => openOutfitDetail(outfit, entry.addedAt));
+        grid.appendChild(card);
+    });
+}
+
+function openOutfitDetail(outfit, addedAt) {
+    document.getElementById('outfitDetailImg').src = outfit.url;
+    const dateStr = addedAt.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+    document.getElementById('outfitDetailDate').textContent = 'Added on ' + dateStr;
+    const ul = document.getElementById('outfitDetailItems');
+    ul.innerHTML = outfit.items.map(item => '<li><div class="item-bullet"></div><span>' + item + '</span></li>').join('');
+    document.getElementById('outfitDetail').classList.add('active');
+}
+
+function closeOutfitDetail() {
+    document.getElementById('outfitDetail').classList.remove('active');
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
