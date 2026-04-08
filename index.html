@@ -15,8 +15,10 @@
         .sidebar-item { font-size:1.4rem; font-weight:600; margin-bottom:20px; cursor:pointer; transition:color 0.3s ease; }
         .sidebar-item:hover { color:#FF9B85; }
         .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:2rem; background:#FAFAFA; }
-        .logo { font-family:'Comfortaa',cursive; font-size:7rem; font-weight:700; color:#FF9B85; margin-bottom:0.5rem; }
-        .underline { width:200px; height:2px; background:#2C2C2C; margin:0 auto 2rem; }
+        .hero-brand { display:flex; align-items:center; gap:1.2rem; margin-bottom:0.5rem; }
+        .hero-logo-img { width:6rem; height:6rem; object-fit:contain; mix-blend-mode:multiply; }
+        .logo { font-family:'Comfortaa',cursive; font-size:7rem; font-weight:700; color:#FF9B85; line-height:1; }
+        .underline { width:320px; height:2px; background:#2C2C2C; margin:0 auto 2rem; }
         .tagline { font-size:1.5rem; font-weight:500; margin-bottom:1rem; }
         .coming-soon { font-size:1.3rem; font-weight:400; margin-bottom:3rem; color:#666; }
         .upload-btn { background:white; border:2px solid #2C2C2C; padding:1rem 3rem; font-family:'Comfortaa',cursive; font-size:1.2rem; font-weight:600; cursor:pointer; transition:all 0.3s ease; display:flex; align-items:center; gap:10px; }
@@ -161,9 +163,12 @@
 </div>
 
 <section class="hero">
-    <h1 class="logo">Sync</h1>
+    <div class="hero-brand">
+        <img src="sync-logo.png" alt="Sync logo" class="hero-logo-img">
+        <h1 class="logo">Sync</h1>
+    </div>
     <div class="underline"></div>
-    <p class="tagline">YOUR PERSONAL STYLIST</p>
+    <p class="tagline">Shopping that truly knows you</p>
     <p class="coming-soon">COMING SOON.</p>
     <button class="upload-btn" onclick="openImagePicker()">
         <span>⬆</span>
