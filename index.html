@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sync - Your Personal Stylist</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:'Comfortaa',cursive; background:#FAFAFA; color:#2C2C2C; overflow-x:hidden; }
@@ -14,13 +14,14 @@
         .sidebar.open { left:0; }
         .sidebar-item { font-size:1.4rem; font-weight:600; margin-bottom:20px; cursor:pointer; transition:color 0.3s ease; }
         .sidebar-item:hover { color:#FF9B85; }
-        .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:2rem; background:#FAFAFA; }
-        .hero-brand { display:flex; align-items:center; gap:1.2rem; margin-bottom:0.5rem; }
-        .hero-logo-img { width:6rem; height:6rem; object-fit:contain; mix-blend-mode:multiply; }
-        .logo { font-family:'Comfortaa',cursive; font-size:7rem; font-weight:700; color:#FF9B85; line-height:1; }
-        .underline { width:320px; height:2px; background:#2C2C2C; margin:0 auto 2rem; }
-        .tagline { font-size:1.5rem; font-weight:500; margin-bottom:1rem; }
-        .coming-soon { font-size:1.3rem; font-weight:400; margin-bottom:3rem; color:#666; }
+        .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:4rem 2rem; background:#FBF0E9; }
+        .hero-inner { display:flex; align-items:center; gap:3rem; width:100%; max-width:1100px; margin-bottom:3.5rem; }
+        .hero-logo-img { width:24rem; height:24rem; object-fit:contain; flex-shrink:0; margin-left:2rem; }
+        .hero-text { display:flex; flex-direction:column; align-items:flex-start; }
+        .logo { font-family:'Comfortaa',cursive; font-size:6.5rem; font-weight:700; color:#FF9B85; line-height:1; margin-bottom:0.6rem; }
+        .underline { width:260px; height:2px; background:#2C2C2C; margin:0 0 1.2rem; }
+        .tagline { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:2rem; font-weight:500; margin-bottom:1rem; color:#2C2C2C; line-height:1.3; }
+        .coming-soon { font-size:1.1rem; font-weight:400; color:#888; letter-spacing:0.1em; }
         .upload-btn { background:white; border:2px solid #2C2C2C; padding:1rem 3rem; font-family:'Comfortaa',cursive; font-size:1.2rem; font-weight:600; cursor:pointer; transition:all 0.3s ease; display:flex; align-items:center; gap:10px; }
         .upload-btn:hover { background:#FF9B85; color:white; border-color:#FF9B85; }
         .recommendations { padding:4rem 2rem; background:#FF9B85; }
@@ -135,7 +136,12 @@
         .toast.show { transform:translateX(-50%) translateY(0); }
 
         @media (max-width:768px) {
+            .hero-inner { flex-direction:column; align-items:center; gap:1.5rem; margin-bottom:2rem; }
+            .hero-logo-img { width:14rem; height:14rem; margin-left:0; }
+            .hero-text { align-items:center; text-align:center; }
+            .underline { margin:0 auto 1.2rem; }
             .logo { font-size:4rem; }
+            .tagline { font-size:1.5rem; }
             .section-title,.analysis-title { font-size:2rem; }
             .brands-grid,.purchases-grid { grid-template-columns:1fr; }
             .outfit-panel { flex-direction:column; }
@@ -163,13 +169,15 @@
 </div>
 
 <section class="hero">
-    <div class="hero-brand">
+    <div class="hero-inner">
         <img src="sync-logo.png" alt="Sync logo" class="hero-logo-img">
-        <h1 class="logo">Sync</h1>
+        <div class="hero-text">
+            <h1 class="logo">Sync</h1>
+            <div class="underline"></div>
+            <p class="tagline">Shopping that truly knows you</p>
+            <p class="coming-soon">COMING SOON.</p>
+        </div>
     </div>
-    <div class="underline"></div>
-    <p class="tagline">Shopping that truly knows you</p>
-    <p class="coming-soon">COMING SOON.</p>
     <button class="upload-btn" onclick="openImagePicker()">
         <span>⬆</span>
         <span>UPLOAD</span>
