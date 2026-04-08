@@ -109,6 +109,25 @@
         .outfit-items-list li:last-child { border-bottom:none; }
         .item-bullet { width:8px; height:8px; border-radius:50%; background:#FF9B85; flex-shrink:0; margin-top:6px; }
 
+        /* LOGIN BUTTON */
+        .login-btn { position:fixed; top:24px; right:30px; z-index:1000; background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.55rem 1.5rem; font-family:'Comfortaa',cursive; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.3s ease; letter-spacing:0.04em; }
+        .login-btn:hover { background:#ff8570; border-color:#ff8570; }
+        .welcome-msg { position:fixed; top:28px; right:30px; z-index:1000; font-family:'Comfortaa',cursive; font-size:1rem; font-weight:700; color:#FF9B85; display:none; }
+
+        /* LOGIN POPUP */
+        #loginPopup { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:6000; justify-content:center; align-items:center; }
+        #loginPopup.active { display:flex; }
+        .login-panel { background:white; border:3px solid #2C2C2C; padding:3rem 2.5rem; max-width:420px; width:90%; position:relative; animation:popupSlide 0.35s cubic-bezier(0.22,1,0.36,1); }
+        .login-panel h2 { font-size:2rem; font-weight:700; margin-bottom:0.4rem; color:#2C2C2C; }
+        .login-panel p { font-size:0.9rem; color:#888; margin-bottom:2rem; }
+        .login-field { display:flex; flex-direction:column; gap:0.4rem; margin-bottom:1.2rem; }
+        .login-field label { font-size:0.85rem; font-weight:700; color:#2C2C2C; letter-spacing:0.05em; text-transform:uppercase; }
+        .login-field input { border:2px solid #2C2C2C; padding:0.75rem 1rem; font-family:'Comfortaa',cursive; font-size:1rem; outline:none; transition:border-color 0.2s; }
+        .login-field input:focus { border-color:#FF9B85; }
+        .login-error { font-size:0.85rem; color:#e05555; font-weight:600; min-height:1.2em; margin-bottom:0.8rem; }
+        .login-submit { width:100%; background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.9rem; font-family:'Comfortaa',cursive; font-size:1.1rem; font-weight:700; cursor:pointer; transition:all 0.2s; letter-spacing:0.04em; }
+        .login-submit:hover { background:#ff8570; border-color:#ff8570; }
+
         /* TOAST */
         .toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(80px); background:#2C2C2C; color:white; padding:0.9rem 2rem; font-family:'Comfortaa',cursive; font-size:1rem; font-weight:600; border-radius:2px; z-index:9999; transition:transform 0.4s cubic-bezier(0.22,1,0.36,1); pointer-events:none; white-space:nowrap; }
         .toast.show { transform:translateX(-50%) translateY(0); }
@@ -123,6 +142,9 @@
     </style>
 </head>
 <body>
+
+<button class="login-btn" id="loginBtn" onclick="openLoginPopup()">LOG IN</button>
+<div class="welcome-msg" id="welcomeMsg">Welcome, Jane</div>
 
 <div class="menu-icon" onclick="toggleSidebar()">
     <div class="menu-line"></div>
@@ -245,6 +267,25 @@
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- Login Popup -->
+<div id="loginPopup">
+    <div class="login-panel">
+        <span class="popup-close" onclick="closeLoginPopup()">×</span>
+        <h2>Welcome back</h2>
+        <p>Sign in to access your personal stylist.</p>
+        <div class="login-field">
+            <label for="loginUsername">Username</label>
+            <input type="text" id="loginUsername" placeholder="Enter your username" autocomplete="username">
+        </div>
+        <div class="login-field">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password">
+        </div>
+        <div class="login-error" id="loginError"></div>
+        <button class="login-submit" onclick="attemptLogin()">SIGN IN</button>
+    </div>
+</div>
 
 <script>
 const OUTFITS = [
@@ -502,6 +543,37 @@ function openOutfitDetail(outfit, addedAt) {
 function closeOutfitDetail() {
     document.getElementById('outfitDetail').classList.remove('active');
 }
+
+function openLoginPopup() {
+    document.getElementById('loginUsername').value = '';
+    document.getElementById('loginPassword').value = '';
+    document.getElementById('loginError').textContent = '';
+    document.getElementById('loginPopup').classList.add('active');
+}
+
+function closeLoginPopup() {
+    document.getElementById('loginPopup').classList.remove('active');
+}
+
+function attemptLogin() {
+    const user = document.getElementById('loginUsername').value.trim();
+    const pass = document.getElementById('loginPassword').value;
+    if (user === 'Jane' && pass === 'closet') {
+        closeLoginPopup();
+        document.getElementById('loginBtn').style.display = 'none';
+        document.getElementById('welcomeMsg').style.display = 'block';
+    } else {
+        document.getElementById('loginError').textContent = 'Incorrect username or password.';
+    }
+}
+
+document.getElementById('loginPassword').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') attemptLogin();
+});
+
+window.addEventListener('click', function(e) {
+    if (e.target === document.getElementById('loginPopup')) closeLoginPopup();
+});
 
 function showToast(msg) {
     const t = document.getElementById('toast');
