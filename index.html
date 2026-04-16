@@ -784,12 +784,16 @@ function getGroupedItems(filter) {
     });
 }
 
-function computeWearRate(groupName) {
+function computeWearRate(groupName, index, totalGroups) {
     let hash = 0;
     for (let i = 0; i < groupName.length; i++) {
         hash = (hash * 31 + groupName.charCodeAt(i)) & 0xFFFFFF;
     }
-    return hash % 101;
+    if (index < Math.ceil(totalGroups * 0.3)) {
+        return 80 + (hash % 20);   // top rows: 80–99%
+    } else {
+        return 5 + (hash % 71);    // lower rows: 5–75%
+    }
 }
 
 function renderHomeBrandList() {
@@ -797,8 +801,8 @@ function renderHomeBrandList() {
     const top5 = grouped.slice(0, 5);
     const container = document.getElementById('homeAnalysisList');
     container.innerHTML = '';
-    top5.forEach(([brandName, items]) => {
-        const wearRate = computeWearRate(brandName);
+    top5.forEach(([brandName, items], index) => {
+        const wearRate = computeWearRate(brandName, index, top5.length);
         const regularlyWorn = items.filter(i => i.wearCount >= 10).length;
         const el = document.createElement('div');
         el.className = 'brand-item';
@@ -838,8 +842,8 @@ function renderClosetAnalysis() {
     const body = document.getElementById('caBody');
     body.innerHTML = '';
     const grouped = getGroupedItems(currentAnalysisFilter);
-    grouped.forEach(([groupName, items]) => {
-        const wearRate = computeWearRate(groupName);
+    grouped.forEach(([groupName, items], index) => {
+        const wearRate = computeWearRate(groupName, index, grouped.length);
         const regularlyWorn = items.filter(i => i.wearCount >= 10).length;
         const section = document.createElement('div');
         section.className = 'ca-section';
