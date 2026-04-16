@@ -351,8 +351,9 @@
     </div>
     <div class="ca-filters">
         <div class="ca-filter-tab active" data-filter="brand" onclick="setAnalysisFilter('brand')">Brand</div>
-        <div class="ca-filter-tab" data-filter="article" onclick="setAnalysisFilter('article')">Article</div>
+        <div class="ca-filter-tab" data-filter="articles" onclick="setAnalysisFilter('articles')">Articles</div>
         <div class="ca-filter-tab" data-filter="color" onclick="setAnalysisFilter('color')">Color</div>
+        <div class="ca-filter-tab" data-filter="occasion" onclick="setAnalysisFilter('occasion')">Occasion</div>
     </div>
     <div class="ca-body" id="caBody"></div>
 </div>
@@ -369,19 +370,19 @@
             <div class="item-detail-title" id="itemDetailName"></div>
             <div class="item-stats-grid">
                 <div class="item-stat-box">
-                    <div class="item-stat-label">Times Worn</div>
+                    <div class="item-stat-label">Wear Rate</div>
                     <div class="item-stat-val" id="itemDetailWorn"></div>
                 </div>
                 <div class="item-stat-box">
-                    <div class="item-stat-label">Price Paid</div>
+                    <div class="item-stat-label">Price</div>
                     <div class="item-stat-val" id="itemDetailPrice"></div>
                 </div>
                 <div class="item-stat-box">
-                    <div class="item-stat-label">Cost Per Wear</div>
+                    <div class="item-stat-label">Color</div>
                     <div class="item-stat-val" id="itemDetailCPW"></div>
                 </div>
                 <div class="item-stat-box">
-                    <div class="item-stat-label">Category</div>
+                    <div class="item-stat-label">Article</div>
                     <div class="item-stat-val" id="itemDetailArticle"></div>
                 </div>
             </div>
@@ -704,62 +705,169 @@ function showToast(msg) {
     setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// ---- CLOSET ITEMS DATA ----
+// ---- CLOSET ITEMS DATA (from slides) ----
 const CLOSET_ITEMS = [
-    // Outfit 1
-    { id:1,  name:'Black Oversized Blazer',       brand:'Zara',              article:'Outerwear', color:'Black',     size:'S',   price:89,  wearCount:14, imageUrl:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80' },
-    { id:2,  name:'White Fitted Crop Tee',         brand:'Aritzia',           article:'Tops',      color:'White',     size:'XS',  price:45,  wearCount:22, imageUrl:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80' },
-    { id:3,  name:'High-Waist Straight-Leg Jeans', brand:"Levi's",            article:'Bottoms',   color:'Blue',      size:'26',  price:98,  wearCount:31, imageUrl:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80' },
-    { id:4,  name:'White Chunky Sneakers',         brand:'New Balance',       article:'Shoes',     color:'White',     size:'7',   price:110, wearCount:18, imageUrl:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80' },
-    // Outfit 2
-    { id:5,  name:'Rust-Orange Knit Sweater',      brand:'Free People',       article:'Tops',      color:'Orange',    size:'S',   price:128, wearCount:8,  imageUrl:'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&q=80' },
-    { id:6,  name:'Pleated Mini Skirt',            brand:'Zara',              article:'Bottoms',   color:'Rust',      size:'XS',  price:49,  wearCount:11, imageUrl:'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&q=80' },
-    { id:7,  name:'Sheer Tights',                  brand:'H&M',               article:'Accessories','color':'Black',   size:'S/M', price:12,  wearCount:9,  imageUrl:'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&q=80' },
-    { id:8,  name:'Ankle Boots',                   brand:'Steve Madden',      article:'Shoes',     color:'Black',     size:'7.5', price:149, wearCount:16, imageUrl:'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&q=80' },
-    { id:9,  name:'Gold Layered Necklaces',        brand:'Mejuri',            article:'Jewelry',   color:'Gold',      size:'OS',  price:95,  wearCount:25, imageUrl:'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&q=80' },
-    // Outfit 3
-    { id:10, name:'Pink Satin Slip Dress',         brand:'Anthropologie',     article:'Dresses',   color:'Pink',      size:'S',   price:148, wearCount:6,  imageUrl:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&q=80' },
-    { id:11, name:'Denim Jacket',                  brand:'American Eagle',    article:'Outerwear', color:'Blue',      size:'M',   price:79,  wearCount:13, imageUrl:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&q=80' },
-    { id:12, name:'Strappy Heeled Sandals',        brand:'ALDO',              article:'Shoes',     color:'Nude',      size:'7',   price:89,  wearCount:10, imageUrl:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&q=80' },
-    { id:13, name:'Leather Shoulder Bag',          brand:'Coach',             article:'Bags',      color:'Brown',     size:'OS',  price:328, wearCount:20, imageUrl:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&q=80' },
-    // Outfit 4
-    { id:14, name:'Black V-Neck Crop Top',         brand:'Hollister',         article:'Tops',      color:'Black',     size:'S',   price:28,  wearCount:19, imageUrl:'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80' },
-    { id:15, name:'Super Dark Baggy Jeans',        brand:"Levi's",            article:'Bottoms',   color:'Dark Blue', size:'32',  price:89,  wearCount:24, imageUrl:'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80' },
-    { id:16, name:'Doc Martens 1460 Boots',        brand:'Doc Martens',       article:'Shoes',     color:'Black',     size:'7',   price:180, wearCount:17, imageUrl:'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80' },
-    { id:17, name:'Black Leather Belt',            brand:'Urban Outfitters',  article:'Accessories','color':'Black',  size:'S/M', price:22,  wearCount:15, imageUrl:'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80' },
-    { id:18, name:'Silver Hoop Earrings',          brand:'ASOS',              article:'Jewelry',   color:'Silver',    size:'OS',  price:18,  wearCount:30, imageUrl:'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80' },
-    // Outfit 5
-    { id:19, name:'Forest Green Cargo Pants',      brand:'Urban Outfitters',  article:'Bottoms',   color:'Green',     size:'28',  price:69,  wearCount:12, imageUrl:'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=400&q=80' },
-    { id:20, name:'Cropped White Hoodie',          brand:'Champion',          article:'Tops',      color:'White',     size:'S',   price:55,  wearCount:20, imageUrl:'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=400&q=80' },
-    { id:21, name:'Nike Air Force 1s',             brand:'Nike',              article:'Shoes',     color:'White',     size:'7',   price:110, wearCount:28, imageUrl:'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=400&q=80' },
-    { id:22, name:'Beige Baseball Cap',            brand:'Carhartt',          article:'Accessories','color':'Beige',  size:'OS',  price:32,  wearCount:16, imageUrl:'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=400&q=80' },
-    // Outfit 6
-    { id:23, name:'Maxi Floral Wrap Dress',        brand:'Reformation',       article:'Dresses',   color:'Floral',    size:'S',   price:218, wearCount:5,  imageUrl:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&q=80' },
-    { id:24, name:'Strappy Flat Sandals',          brand:'Sam Edelman',       article:'Shoes',     color:'Tan',       size:'7',   price:80,  wearCount:11, imageUrl:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&q=80' },
-    { id:25, name:'Woven Straw Hat',               brand:'Target',            article:'Accessories','color':'Beige',  size:'OS',  price:15,  wearCount:8,  imageUrl:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&q=80' },
-    { id:26, name:'Rattan Mini Bag',               brand:'Anthropologie',     article:'Bags',      color:'Beige',     size:'OS',  price:68,  wearCount:7,  imageUrl:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&q=80' },
-    // Outfit 7
-    { id:27, name:'Camel Trench Coat',             brand:'Everlane',          article:'Outerwear', color:'Camel',     size:'S',   price:198, wearCount:21, imageUrl:'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80' },
-    { id:28, name:'Black Turtleneck',              brand:'COS',               article:'Tops',      color:'Black',     size:'XS',  price:75,  wearCount:17, imageUrl:'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80' },
-    { id:29, name:'Wide-Leg Trousers',             brand:'Zara',              article:'Bottoms',   color:'Black',     size:'XS',  price:65,  wearCount:13, imageUrl:'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80' },
-    { id:30, name:'Pointed-Toe Heels',             brand:'& Other Stories',   article:'Shoes',     color:'Black',     size:'7',   price:145, wearCount:9,  imageUrl:'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80' },
-    { id:31, name:'Mini Leather Tote',             brand:'Polène',            article:'Bags',      color:'Black',     size:'OS',  price:290, wearCount:12, imageUrl:'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80' },
-    // Outfit 8
-    { id:32, name:'Ribbed Matching Set',           brand:'Skims',             article:'Tops',      color:'Beige',     size:'S',   price:88,  wearCount:15, imageUrl:'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80' },
-    { id:33, name:'Adidas Samba Sneakers',         brand:'Adidas',            article:'Shoes',     color:'White',     size:'7',   price:100, wearCount:22, imageUrl:'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80' },
-    { id:34, name:'Gold Huggie Earrings',          brand:'Mejuri',            article:'Jewelry',   color:'Gold',      size:'OS',  price:65,  wearCount:28, imageUrl:'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80' },
-    { id:35, name:'Mini Backpack',                 brand:'Herschel',          article:'Bags',      color:'Black',     size:'OS',  price:55,  wearCount:14, imageUrl:'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80' },
-    // Outfit 9
-    { id:36, name:'Leather Moto Jacket',           brand:'AllSaints',         article:'Outerwear', color:'Black',     size:'S',   price:298, wearCount:18, imageUrl:'https://images.unsplash.com/photo-1550614000-4895a10e1bfd?w=400&q=80' },
-    { id:37, name:'Black Band Tee',                brand:'Vintage',           article:'Tops',      color:'Black',     size:'M',   price:35,  wearCount:23, imageUrl:'https://images.unsplash.com/photo-1550614000-4895a10e1bfd?w=400&q=80' },
-    { id:38, name:'Distressed Skinny Jeans',       brand:'Abercrombie',       article:'Bottoms',   color:'Blue',      size:'26',  price:79,  wearCount:19, imageUrl:'https://images.unsplash.com/photo-1550614000-4895a10e1bfd?w=400&q=80' },
-    { id:39, name:'Chelsea Boots',                 brand:'Dr. Martens',       article:'Shoes',     color:'Black',     size:'7',   price:160, wearCount:16, imageUrl:'https://images.unsplash.com/photo-1550614000-4895a10e1bfd?w=400&q=80' },
-    // Outfit 10
-    { id:40, name:'Lilac Blazer & Trousers',       brand:'ASOS',              article:'Outerwear', color:'Lilac',     size:'6',   price:89,  wearCount:7,  imageUrl:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80' },
-    { id:41, name:'White Strappy Tank',            brand:'Brandy Melville',   article:'Tops',      color:'White',     size:'OS',  price:25,  wearCount:14, imageUrl:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80' },
-    { id:42, name:'White Kitten Heels',            brand:'Zara',              article:'Shoes',     color:'White',     size:'7',   price:59,  wearCount:8,  imageUrl:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80' },
-    { id:43, name:'Pearl Necklace',                brand:'H&M',               article:'Jewelry',   color:'White',     size:'OS',  price:15,  wearCount:12, imageUrl:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80' },
-    { id:44, name:'White Micro Tote',              brand:'Charles & Keith',   article:'Bags',      color:'White',     size:'OS',  price:55,  wearCount:10, imageUrl:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80' },
+    {
+        id:1, name:"Green Mini Dress",
+        brand:"Lulu's", article:"Mini Dress", color:"Green", colorDisplay:"Green",
+        price:"$66.00", wearRatePct:"10%", wearRateDetail:"10 times in the last 60 days", wearCount:10,
+        occasions:["Night Out","Brunch","Lunch","Picnic","Casual"],
+        imageUrl:"outfits/img-000.png"
+    },
+    {
+        id:2, name:"Black Casual T-Shirt",
+        brand:"Lululemon", article:"Casual T-Shirt", color:"Black", colorDisplay:"Black",
+        price:"$25.00", wearRatePct:"55%", wearRateDetail:"16 times in the last 30 days", wearCount:16,
+        occasions:["School","Casual"],
+        imageUrl:"outfits/img-001.png"
+    },
+    {
+        id:3, name:"White Sweatpants",
+        brand:"Brandy Melville", article:"Sweatpants", color:"White", colorDisplay:"White",
+        price:"$60.00", wearRatePct:"75%", wearRateDetail:"23 times in the last 30 days", wearCount:23,
+        occasions:["Casual","School"],
+        imageUrl:"outfits/img-002.png"
+    },
+    {
+        id:4, name:"White Casual T-Shirt",
+        brand:"Brandy Melville", article:"Casual T-Shirt", color:"White", colorDisplay:"White",
+        price:"$17.00", wearRatePct:"15%", wearRateDetail:"4 times in the last 30 days", wearCount:4,
+        occasions:["Casual","School"],
+        imageUrl:"outfits/img-003.png"
+    },
+    {
+        id:5, name:"Blue Pants",
+        brand:"TopShop", article:"Pants", color:"Blue", colorDisplay:"Blue",
+        price:"$35.00", wearRatePct:"20%", wearRateDetail:"6 times in the last 30 days", wearCount:6,
+        occasions:["Casual","Sleepwear"],
+        imageUrl:"outfits/img-004.png"
+    },
+    {
+        id:6, name:"Black Tank Top",
+        brand:"Goodwill", article:"Tank Top", color:"Black", colorDisplay:"Black",
+        price:"$10.00", wearRatePct:"50%", wearRateDetail:"15 times in the last 30 days", wearCount:15,
+        occasions:["Casual"],
+        imageUrl:"outfits/img-005.png"
+    },
+    {
+        id:7, name:"Blue & Gold Salwar Suit",
+        brand:"Fritz Studios", article:"Salwar Suit", color:"Blue", colorDisplay:"Blue, Gold",
+        price:"RS3000", wearRatePct:"10%", wearRateDetail:"3 times in the last 30 days", wearCount:3,
+        occasions:["Party","Dinner"],
+        imageUrl:"outfits/img-006.png"
+    },
+    {
+        id:8, name:"Blue Casual Salwar Suit",
+        brand:"Sui", article:"Salwar Suit", color:"Blue", colorDisplay:"Blue",
+        price:"RS1700", wearRatePct:"20%", wearRateDetail:"6 times in the last 30 days", wearCount:6,
+        occasions:["Temple","Casual"],
+        imageUrl:"outfits/img-007.png"
+    },
+    {
+        id:9, name:"Gray Flare Leggings",
+        brand:"Lululemon", article:"Leggings", color:"Gray", colorDisplay:"Gray",
+        price:"$75.00", wearRatePct:"50%", wearRateDetail:"15 times in the last 30 days", wearCount:15,
+        occasions:["Casual","School"],
+        imageUrl:"outfits/img-008.png"
+    },
+    {
+        id:10, name:"Blue Skinny Jeans",
+        brand:"Hollister", article:"Skinny Jeans", color:"Blue", colorDisplay:"Blue",
+        price:"$50.00", wearRatePct:"50%", wearRateDetail:"15 times in the last 30 days", wearCount:15,
+        occasions:["Casual","Date Night","School"],
+        imageUrl:"outfits/img-009.png"
+    },
+    {
+        id:11, name:"Gray Oversized Fleece Jacket",
+        brand:"Shein", article:"Fleece Jacket", color:"Gray", colorDisplay:"Gray",
+        price:"$75.00", wearRatePct:"50%", wearRateDetail:"15 times in the last 30 days", wearCount:15,
+        occasions:["Casual","School"],
+        imageUrl:"outfits/img-010.png"
+    },
+    {
+        id:12, name:"Brown Wide-Leg Slacks",
+        brand:"Vince", article:"Slacks", color:"Brown", colorDisplay:"Brown",
+        price:"$95.00", wearRatePct:"30%", wearRateDetail:"9 times in the last 30 days", wearCount:9,
+        occasions:["Holiday","Date Night","Work"],
+        imageUrl:"outfits/img-011.png"
+    },
+    {
+        id:13, name:"Black Formal Dress",
+        brand:"PaperMayo", article:"Dress", color:"Black", colorDisplay:"Black",
+        price:"$150.89", wearRatePct:"5%", wearRateDetail:"2 times in the last 30 days", wearCount:2,
+        occasions:["Dinner","Date Night","Formal","Night Out"],
+        imageUrl:"outfits/img-012.png"
+    },
+    {
+        id:14, name:"Pink Dress",
+        brand:"Macy's", article:"Dress", color:"Pink", colorDisplay:"Pink",
+        price:"$68.00", wearRatePct:"3%", wearRateDetail:"1 time in the last 30 days", wearCount:1,
+        occasions:["Dinner","Celebration"],
+        imageUrl:"outfits/img-013.png"
+    },
+    {
+        id:15, name:"Gray Hoodie",
+        brand:"American Eagle", article:"Hoodie", color:"Gray", colorDisplay:"Gray",
+        price:"$64.00", wearRatePct:"75%", wearRateDetail:"23 times in the last 30 days", wearCount:23,
+        occasions:["Casual","School"],
+        imageUrl:"outfits/img-014.png"
+    },
+    {
+        id:16, name:"Brown Collared Shirt",
+        brand:"Gap", article:"Collared Shirt", color:"Brown", colorDisplay:"Brown",
+        price:"$35.00", wearRatePct:"75%", wearRateDetail:"23 times in the last 30 days", wearCount:23,
+        occasions:["Casual","Lunch","Dinner"],
+        imageUrl:"outfits/img-015.png"
+    },
+    {
+        id:17, name:"Black Muscle Tee",
+        brand:"Nike", article:"Muscle Tee", color:"Black", colorDisplay:"Black",
+        price:"$28.00", wearRatePct:"80%", wearRateDetail:"24 times in the last 30 days", wearCount:24,
+        occasions:["Casual","Gym"],
+        imageUrl:"outfits/img-016.png"
+    },
+    {
+        id:18, name:"Gray Workout Shirt",
+        brand:"Target", article:"Workout Shirt", color:"Gray", colorDisplay:"Gray",
+        price:"$12.00", wearRatePct:"60%", wearRateDetail:"18 times in the last 30 days", wearCount:18,
+        occasions:["Casual","Gym"],
+        imageUrl:"outfits/img-017.png"
+    },
+    {
+        id:19, name:"Black Button-Down Dress Shirt",
+        brand:"Banana Republic", article:"Dress Shirt", color:"Black", colorDisplay:"Black",
+        price:"$45.00", wearRatePct:"3%", wearRateDetail:"1 time in the last 30 days", wearCount:1,
+        occasions:["Formal","Date Night","Night Out"],
+        imageUrl:"outfits/img-018.png"
+    },
+    {
+        id:20, name:"White Long Sleeve Shirt",
+        brand:"Aritzia", article:"Long Sleeve Shirt", color:"White", colorDisplay:"White",
+        price:"$34.00", wearRatePct:"60%", wearRateDetail:"18 times in the last 30 days", wearCount:18,
+        occasions:["Work","Holiday"],
+        imageUrl:"outfits/img-019.png"
+    },
+    {
+        id:21, name:"Black Minidress",
+        brand:"Aritzia", article:"Minidress", color:"Black", colorDisplay:"Black",
+        price:"$64.00", wearRatePct:"8%", wearRateDetail:"3 times in the last 30 days", wearCount:3,
+        occasions:["Work","Holiday","Celebration"],
+        imageUrl:"outfits/img-020.png"
+    },
+    {
+        id:22, name:"Brown Plaid Blouse",
+        brand:"Cotton On", article:"Plaid Blouse", color:"Brown", colorDisplay:"Brown",
+        price:"$21.00", wearRatePct:"8%", wearRateDetail:"3 times in the last 30 days", wearCount:3,
+        occasions:["School","Casual"],
+        imageUrl:"outfits/img-021.png"
+    },
+    {
+        id:23, name:"Red Jersey",
+        brand:"Nike", article:"Jersey", color:"Red", colorDisplay:"Red",
+        price:"$34.00", wearRatePct:"40%", wearRateDetail:"12 times in the last 30 days", wearCount:12,
+        occasions:["School","Casual"],
+        imageUrl:"outfits/img-022.png"
+    },
 ];
 
 // ---- CLOSET ANALYSIS LOGIC ----
@@ -768,15 +876,17 @@ let currentAnalysisFilter = 'brand';
 function getGroupedItems(filter) {
     const groups = {};
     CLOSET_ITEMS.forEach(item => {
-        const key = filter === 'brand' ? item.brand
-                  : filter === 'color' ? item.color
-                  : item.article;
-        if (!groups[key]) groups[key] = [];
-        groups[key].push(item);
+        const keys = filter === 'occasion' ? item.occasions
+                   : [filter === 'brand'    ? item.brand
+                    : filter === 'color'    ? item.color
+                    : item.article];
+        keys.forEach(k => {
+            const key = k.trim();
+            if (!groups[key]) groups[key] = [];
+            if (!groups[key].some(i => i.id === item.id)) groups[key].push(item);
+        });
     });
-    // Sort items within each group by wearCount desc
     Object.values(groups).forEach(arr => arr.sort((a, b) => b.wearCount - a.wearCount));
-    // Sort groups by total wear count desc
     return Object.entries(groups).sort((a, b) => {
         const totalA = a[1].reduce((s, i) => s + i.wearCount, 0);
         const totalB = b[1].reduce((s, i) => s + i.wearCount, 0);
@@ -878,16 +988,16 @@ function openItemDetail(item) {
     document.getElementById('itemDetailImg').src = item.imageUrl;
     document.getElementById('itemDetailBrand').textContent = item.brand;
     document.getElementById('itemDetailName').textContent = item.name;
-    document.getElementById('itemDetailWorn').textContent = item.wearCount + 'x';
-    document.getElementById('itemDetailPrice').textContent = '$' + item.price;
-    document.getElementById('itemDetailCPW').textContent = '$' + (item.price / item.wearCount).toFixed(2);
+    document.getElementById('itemDetailWorn').textContent = item.wearRatePct;
+    document.getElementById('itemDetailPrice').textContent = item.price;
+    document.getElementById('itemDetailCPW').textContent = item.colorDisplay;
     document.getElementById('itemDetailArticle').textContent = item.article;
     document.getElementById('itemDetailMeta').innerHTML =
         '<hr style="border:none;border-top:1px solid #F0F0F0;margin:0 0 1.2rem">' +
-        '<div class="item-meta-row"><span class="item-meta-label">Color</span><span class="item-meta-val">' + item.color + '</span></div>' +
-        '<div class="item-meta-row"><span class="item-meta-label">Size</span><span class="item-meta-val">' + item.size + '</span></div>' +
+        '<div class="item-meta-row"><span class="item-meta-label">Worn</span><span class="item-meta-val">' + item.wearRateDetail + '</span></div>' +
+        '<div class="item-meta-row"><span class="item-meta-label">Occasions</span><span class="item-meta-val">' + item.occasions.join(', ') + '</span></div>' +
         '<div class="item-meta-row"><span class="item-meta-label">Brand</span><span class="item-meta-val">' + item.brand + '</span></div>' +
-        '<div class="item-meta-row"><span class="item-meta-label">Category</span><span class="item-meta-val">' + item.article + '</span></div>';
+        '<div class="item-meta-row"><span class="item-meta-label">Article</span><span class="item-meta-val">' + item.article + '</span></div>';
     document.getElementById('itemDetailPopup').classList.add('active');
 }
 
