@@ -798,11 +798,12 @@ function computeWearRate(groupName, index, totalGroups) {
 
 function renderHomeBrandList() {
     const grouped = getGroupedItems('brand');
-    const top5 = grouped.slice(0, 5);
+    const top5 = grouped.slice(0, 5)
+        .map(([brandName, items], index) => ({ brandName, items, wearRate: computeWearRate(brandName, index, grouped.length) }))
+        .sort((a, b) => b.wearRate - a.wearRate);
     const container = document.getElementById('homeAnalysisList');
     container.innerHTML = '';
-    top5.forEach(([brandName, items], index) => {
-        const wearRate = computeWearRate(brandName, index, top5.length);
+    top5.forEach(({ brandName, items, wearRate }) => {
         const regularlyWorn = items.filter(i => i.wearCount >= 10).length;
         const el = document.createElement('div');
         el.className = 'brand-item';
@@ -841,9 +842,11 @@ function setAnalysisFilter(filter) {
 function renderClosetAnalysis() {
     const body = document.getElementById('caBody');
     body.innerHTML = '';
-    const grouped = getGroupedItems(currentAnalysisFilter);
-    grouped.forEach(([groupName, items], index) => {
-        const wearRate = computeWearRate(groupName, index, grouped.length);
+    const raw = getGroupedItems(currentAnalysisFilter);
+    const grouped = raw
+        .map(([groupName, items], index) => ({ groupName, items, wearRate: computeWearRate(groupName, index, raw.length) }))
+        .sort((a, b) => b.wearRate - a.wearRate);
+    grouped.forEach(({ groupName, items, wearRate }) => {
         const regularlyWorn = items.filter(i => i.wearCount >= 10).length;
         const section = document.createElement('div');
         section.className = 'ca-section';
