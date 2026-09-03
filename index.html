@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sync - Your Personal Stylist</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         :root {
@@ -25,8 +24,8 @@
                 transform:none !important;
             }
         }
-        body { font-family:'Comfortaa',cursive; background:#FAFAFA; color:#2C2C2C; overflow-x:hidden; padding-top:72px; }
-        .site-header { position:fixed; top:0; left:0; right:0; height:72px; background:white; border-bottom:2px solid #2C2C2C; z-index:1000; display:flex; align-items:center; padding:0 30px; gap:1.5rem; }
+        body { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; background:#FAFAFA; color:#2C2C2C; overflow-x:hidden; padding-top:72px; }
+        .site-header { position:fixed; top:0; left:0; right:0; height:72px; background:#FBF0E9; z-index:1000; display:flex; align-items:center; padding:0 30px; gap:1.5rem; }
         .menu-icon { flex-shrink:0; cursor:pointer; display:flex; flex-direction:column; gap:6px; }
         .menu-line { width:30px; height:3px; background:#2C2C2C; transition:transform 200ms var(--ease-out), opacity 200ms var(--ease-out); transform-origin:center; }
         .menu-icon.open .menu-line:nth-child(1) { transform:translateY(9px) rotate(45deg); }
@@ -40,16 +39,16 @@
         .hero-inner { display:flex; align-items:center; gap:3rem; width:100%; max-width:1100px; margin-bottom:3.5rem; }
         .hero-logo-img { width:24rem; height:24rem; object-fit:contain; flex-shrink:0; margin-left:2rem; }
         .hero-text { display:flex; flex-direction:column; align-items:flex-start; }
-        .logo { font-family:'Comfortaa',cursive; font-size:6.5rem; font-weight:700; color:#FF9B85; line-height:1; margin-bottom:0.6rem; }
+        .logo { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:6.5rem; font-weight:700; color:#FF9B85; line-height:1; margin-bottom:0.6rem; }
         .underline { width:260px; height:2px; background:#2C2C2C; margin:0 0 1.2rem; }
-        .tagline { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:2rem; font-weight:500; margin-bottom:1rem; color:#2C2C2C; line-height:1.3; }
+        .tagline { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-style:italic; font-size:2rem; font-weight:500; margin-bottom:1rem; color:#2C2C2C; line-height:1.3; }
         .coming-soon { font-size:1.1rem; font-weight:400; color:#888; letter-spacing:0.1em; }
-        .upload-btn { background:white; border:2px solid #2C2C2C; padding:1rem 3rem; font-family:'Comfortaa',cursive; font-size:1.2rem; font-weight:600; cursor:pointer; transition:background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); display:flex; align-items:center; gap:10px; }
+        .upload-btn { background:white; border:2px solid #2C2C2C; padding:1rem 3rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:1.2rem; font-weight:600; cursor:pointer; transition:background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); display:flex; align-items:center; gap:10px; }
         @media (hover:hover) and (pointer:fine) { .upload-btn:hover { background:#C05A44; color:white; border-color:#C05A44; } }
         .upload-btn:active { transform:scale(0.97); }
         .recommendations { padding:4rem 2rem; background:#FF9B85; }
         .section-header { display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:0 auto 3rem; }
-        .section-title { font-family:'Comfortaa',cursive; font-size:2.5rem; font-weight:700; letter-spacing:0.05em; color:#2C2C2C; }
+        .section-title { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:2.5rem; font-weight:700; letter-spacing:0.05em; color:#2C2C2C; }
         .see-all { font-size:1.3rem; font-weight:500; text-decoration:underline; cursor:pointer; color:#2C2C2C; transition:color 0.2s ease; }
         @media (hover:hover) and (pointer:fine) { .see-all:hover { color:white; } }
         .brands-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem; }
@@ -100,10 +99,10 @@
         .picker-check { position:absolute; top:8px; right:8px; width:28px; height:28px; background:#FF9B85; border-radius:50%; display:none; align-items:center; justify-content:center; color:white; font-size:1rem; font-weight:700; box-shadow:0 2px 6px rgba(0,0,0,0.25); }
         .picker-img-wrap.selected .picker-check { display:flex; }
         .picker-actions { display:flex; gap:1rem; justify-content:flex-end; }
-        .btn-cancel { background:white; border:2px solid #2C2C2C; padding:0.75rem 2rem; font-family:'Comfortaa',cursive; font-size:1rem; font-weight:600; cursor:pointer; transition:background-color 200ms ease, transform 160ms var(--ease-out); }
+        .btn-cancel { background:white; border:2px solid #2C2C2C; padding:0.75rem 2rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:1rem; font-weight:600; cursor:pointer; transition:background-color 200ms ease, transform 160ms var(--ease-out); }
         @media (hover:hover) and (pointer:fine) { .btn-cancel:hover { background:#F0F0F0; } }
         .btn-cancel:active { transform:scale(0.97); }
-        .btn-add { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.75rem 2rem; font-family:'Comfortaa',cursive; font-size:1rem; font-weight:600; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); }
+        .btn-add { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.75rem 2rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:1rem; font-weight:600; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); }
         @media (hover:hover) and (pointer:fine) { .btn-add:hover { background:#ff8570; border-color:#ff8570; } }
         .btn-add:active:not(:disabled) { transform:scale(0.97); }
         .btn-add:disabled { opacity:0.4; cursor:default; }
@@ -150,24 +149,20 @@
 
         /* LOGIN BUTTON */
         .header-search-wrap { flex:1; display:flex; align-items:center; gap:0.7rem; max-width:640px; margin:0 auto; min-width:0; }
-        .header-search-bar { flex:1; min-width:0; display:flex; align-items:center; gap:0.6rem; background:#F5F5F5; border:2px solid transparent; border-radius:999px; padding:0.65rem 1.3rem; cursor:pointer; transition:border-color 200ms ease, background-color 200ms ease, transform 160ms var(--ease-out); font-family:'Comfortaa',cursive; text-align:left; }
+        .header-search-bar { flex:1; min-width:0; display:flex; align-items:center; gap:0.6rem; background:#F5F5F5; border:2px solid transparent; border-radius:999px; padding:0.65rem 1.3rem; cursor:pointer; transition:border-color 200ms ease, background-color 200ms ease, transform 160ms var(--ease-out); font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; text-align:left; }
         @media (hover:hover) and (pointer:fine) { .header-search-bar:hover { border-color:#FF9B85; background:white; } }
         .header-search-bar:active { transform:scale(0.98); }
         .header-search-icon { font-size:1rem; color:#999; flex-shrink:0; }
         .header-search-placeholder { color:#AAA; font-size:0.92rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-        .header-search-mode-btn { background:white; border:2px solid #2C2C2C; padding:0.55rem 1rem; border-radius:999px; font-family:'Comfortaa',cursive; font-size:0.8rem; font-weight:700; cursor:pointer; white-space:nowrap; flex-shrink:0; transition:background-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); }
-        @media (hover:hover) and (pointer:fine) { .header-search-mode-btn:hover { background:#2C2C2C; color:white; } }
-        .header-search-mode-btn:active { transform:scale(0.96); }
-        @media (max-width:900px) { .header-search-mode-btn { display:none; } }
         .header-right { display:flex; align-items:center; gap:1.1rem; flex-shrink:0; }
         .cart-btn { position:relative; background:none; border:none; cursor:pointer; font-size:1.35rem; padding:0.3rem; line-height:1; transition:transform 160ms var(--ease-out); }
         .cart-btn:active { transform:scale(0.9); }
-        .cart-count { position:absolute; top:-2px; right:-4px; background:#FF9B85; color:white; font-size:0.62rem; font-weight:700; border-radius:50%; min-width:16px; height:16px; display:none; align-items:center; justify-content:center; padding:0 3px; font-family:'Comfortaa',cursive; }
+        .cart-count { position:absolute; top:-2px; right:-4px; background:#FF9B85; color:white; font-size:0.62rem; font-weight:700; border-radius:50%; min-width:16px; height:16px; display:none; align-items:center; justify-content:center; padding:0 3px; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; }
         .cart-count.show { display:flex; }
-        .login-btn { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.55rem 1.5rem; font-family:'Comfortaa',cursive; font-size:1rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); letter-spacing:0.02em; }
+        .login-btn { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.55rem 1.5rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:1rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); letter-spacing:0.02em; }
         @media (hover:hover) and (pointer:fine) { .login-btn:hover { background:#ff8570; border-color:#ff8570; } }
         .login-btn:active { transform:scale(0.97); }
-        .welcome-msg { font-family:'Comfortaa',cursive; font-size:1rem; font-weight:700; color:#FF9B85; display:none; white-space:nowrap; }
+        .welcome-msg { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:1rem; font-weight:700; color:#FF9B85; display:none; white-space:nowrap; }
 
         /* LOGIN POPUP */
         #loginPopup { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:6000; justify-content:center; align-items:center; opacity:0; transition:opacity 200ms ease, display 200ms allow-discrete; }
@@ -178,15 +173,15 @@
         .login-panel p { font-size:0.9rem; color:#888; margin-bottom:2rem; }
         .login-field { display:flex; flex-direction:column; gap:0.4rem; margin-bottom:1.2rem; }
         .login-field label { font-size:0.85rem; font-weight:700; color:#2C2C2C; letter-spacing:0.03em; }
-        .login-field input { border:2px solid #2C2C2C; padding:0.75rem 1rem; font-family:'Comfortaa',cursive; font-size:1rem; outline:none; transition:border-color 0.2s; }
+        .login-field input { border:2px solid #2C2C2C; padding:0.75rem 1rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:1rem; outline:none; transition:border-color 0.2s; }
         .login-field input:focus { border-color:#FF9B85; }
         .login-error { font-size:0.85rem; color:#e05555; font-weight:600; min-height:1.2em; margin-bottom:0.8rem; }
-        .login-submit { width:100%; background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.9rem; font-family:'Comfortaa',cursive; font-size:1.1rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); letter-spacing:0.04em; }
+        .login-submit { width:100%; background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.9rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:1.1rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); letter-spacing:0.04em; }
         @media (hover:hover) and (pointer:fine) { .login-submit:hover { background:#ff8570; border-color:#ff8570; } }
         .login-submit:active { transform:scale(0.98); }
 
         /* TOAST */
-        .toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(80px); background:#2C2C2C; color:white; padding:0.9rem 2rem; font-family:'Comfortaa',cursive; font-size:1rem; font-weight:600; border-radius:2px; z-index:9999; transition:transform 200ms var(--ease-out); pointer-events:none; white-space:nowrap; }
+        .toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(80px); background:#2C2C2C; color:white; padding:0.9rem 2rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:1rem; font-weight:600; border-radius:2px; z-index:9999; transition:transform 200ms var(--ease-out); pointer-events:none; white-space:nowrap; }
         .toast.show { transform:translateX(-50%) translateY(0); }
 
         @media (max-width:768px) {
@@ -205,7 +200,7 @@
         /* ANALYSIS HOME HEADER */
         .analysis-header-row { display:flex; align-items:center; gap:1.5rem; margin-bottom:2rem; flex-wrap:wrap; }
         .analysis-header-row .analysis-title { margin-bottom:0; }
-        .see-more-btn { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.45rem 1.4rem; font-family:'Comfortaa',cursive; font-size:0.88rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); letter-spacing:0.03em; flex-shrink:0; }
+        .see-more-btn { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.45rem 1.4rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:0.88rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); letter-spacing:0.03em; flex-shrink:0; }
         @media (hover:hover) and (pointer:fine) { .see-more-btn:hover { background:#C05A44; border-color:#C05A44; } }
         .see-more-btn:active { transform:scale(0.97); }
         .brand-item { cursor:pointer; transition:background-color 150ms ease; }
@@ -222,7 +217,7 @@
         .ca-back:active { transform:scale(0.9); }
         .ca-header-title { font-size:1.6rem; font-weight:700; }
         .ca-filters { display:flex; background:white; border-bottom:2px solid #2C2C2C; padding:0 2rem; flex-shrink:0; }
-        .ca-filter-tab { padding:0.9rem 1.6rem; font-family:'Comfortaa',cursive; font-size:0.95rem; font-weight:700; cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; transition:color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); color:#999; letter-spacing:0.03em; }
+        .ca-filter-tab { padding:0.9rem 1.6rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; transition:color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); color:#999; letter-spacing:0.03em; }
         .ca-filter-tab.active { color:#2C2C2C; border-bottom-color:#FF9B85; }
         @media (hover:hover) and (pointer:fine) { .ca-filter-tab:hover:not(.active) { color:#2C2C2C; } }
         .ca-filter-tab:active { transform:scale(0.96); }
@@ -283,7 +278,7 @@
         .search-back:active { transform:scale(0.9); }
         .search-header-title { font-size:1.6rem; font-weight:700; }
         .search-tabs { display:flex; background:white; border-bottom:2px solid #2C2C2C; padding:0 2rem; flex-shrink:0; }
-        .search-tab { padding:0.9rem 1.6rem; font-family:'Comfortaa',cursive; font-size:0.95rem; font-weight:700; cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; transition:color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); color:#999; letter-spacing:0.03em; }
+        .search-tab { padding:0.9rem 1.6rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; transition:color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); color:#999; letter-spacing:0.03em; }
         .search-tab.active { color:#2C2C2C; border-bottom-color:#FF9B85; }
         @media (hover:hover) and (pointer:fine) { .search-tab:hover:not(.active) { color:#2C2C2C; } }
         .search-tab:active { transform:scale(0.96); }
@@ -291,7 +286,7 @@
         .search-body-inner { max-width:900px; margin:0 auto; }
         .search-mode-panel { display:none; }
         .search-mode-panel.active { display:block; }
-        .search-text-box { border:2px solid #2C2C2C; padding:1.1rem 1.2rem; font-family:'Comfortaa',cursive; font-size:1.05rem; width:100%; min-height:90px; resize:vertical; outline:none; transition:border-color 0.2s; }
+        .search-text-box { border:2px solid #2C2C2C; padding:1.1rem 1.2rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:1.05rem; width:100%; min-height:90px; resize:vertical; outline:none; transition:border-color 0.2s; }
         .search-text-box:focus { border-color:#FF9B85; }
         .search-hint { font-size:0.8rem; color:#999; margin-top:0.6rem; line-height:1.5; }
         .draw-area { display:flex; gap:1.8rem; flex-wrap:wrap; align-items:flex-start; }
@@ -304,12 +299,12 @@
         .color-swatch:active { transform:scale(0.9); }
         .color-swatch.selected { box-shadow:0 0 0 3px white,0 0 0 5px #FF9B85; }
         .hex-input-row { display:flex; align-items:center; gap:0.6rem; }
-        .hex-input-row input[type=text] { border:2px solid #2C2C2C; padding:0.5rem 0.7rem; font-family:'Comfortaa',cursive; width:100px; outline:none; text-transform:uppercase; }
+        .hex-input-row input[type=text] { border:2px solid #2C2C2C; padding:0.5rem 0.7rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; width:100px; outline:none; text-transform:uppercase; }
         .hex-input-row input[type=color] { width:38px; height:38px; border:2px solid #2C2C2C; padding:0; cursor:pointer; background:none; border-radius:4px; }
         .toggle-row { display:flex; align-items:center; gap:0.6rem; font-size:0.88rem; font-weight:600; cursor:pointer; }
         .toggle-row input { width:17px; height:17px; accent-color:#FF9B85; cursor:pointer; }
         .toggle-hint { font-size:0.78rem; color:#999; margin-top:-0.5rem; line-height:1.5; }
-        .btn-clear-canvas { align-self:flex-start; background:white; border:2px solid #2C2C2C; padding:0.5rem 1.2rem; font-family:'Comfortaa',cursive; font-weight:600; font-size:0.85rem; cursor:pointer; transition:background-color 200ms ease, transform 160ms var(--ease-out); }
+        .btn-clear-canvas { align-self:flex-start; background:white; border:2px solid #2C2C2C; padding:0.5rem 1.2rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-weight:600; font-size:0.85rem; cursor:pointer; transition:background-color 200ms ease, transform 160ms var(--ease-out); }
         @media (hover:hover) and (pointer:fine) { .btn-clear-canvas:hover { background:#F0F0F0; } }
         .btn-clear-canvas:active { transform:scale(0.96); }
         .options-bar { display:flex; flex-wrap:wrap; align-items:flex-end; gap:1.8rem; margin:1.8rem 0; padding:1.2rem 1.4rem; background:white; border:2px solid #2C2C2C; }
@@ -317,16 +312,16 @@
         .option-label { font-size:0.72rem; font-weight:700; letter-spacing:0.02em; color:#888; }
         .option-group input[type=range] { width:160px; accent-color:#FF9B85; }
         .option-value { font-size:0.85rem; font-weight:700; color:#FF9B85; }
-        .option-group select { border:2px solid #2C2C2C; padding:0.5rem 0.7rem; font-family:'Comfortaa',cursive; font-weight:600; outline:none; background:white; cursor:pointer; }
+        .option-group select { border:2px solid #2C2C2C; padding:0.5rem 0.7rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-weight:600; outline:none; background:white; cursor:pointer; }
         .send-row { display:flex; justify-content:center; margin-bottom:1rem; }
-        .btn-send-query { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.85rem 2.6rem; font-family:'Comfortaa',cursive; font-size:1.05rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); letter-spacing:0.03em; }
+        .btn-send-query { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.85rem 2.6rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:1.05rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); letter-spacing:0.03em; }
         @media (hover:hover) and (pointer:fine) { .btn-send-query:hover { background:#C05A44; border-color:#C05A44; } }
         .btn-send-query:active { transform:scale(0.97); }
         .search-results-meta { font-size:0.9rem; color:#888; margin:2rem 0 1rem; }
         .results-view-toggle { display:none; align-items:center; gap:0.6rem; margin-bottom:1.2rem; }
         .results-view-toggle.show { display:flex; }
         .results-view-label { font-size:0.78rem; font-weight:700; color:#888; letter-spacing:0.02em; }
-        .view-toggle-btn { background:white; border:2px solid #2C2C2C; padding:0.35rem 1rem; font-family:'Comfortaa',cursive; font-size:0.8rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); }
+        .view-toggle-btn { background:white; border:2px solid #2C2C2C; padding:0.35rem 1rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:0.8rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); }
         .view-toggle-btn.active { background:#2C2C2C; color:white; }
         @media (hover:hover) and (pointer:fine) { .view-toggle-btn:hover:not(.active) { background:#F0F0F0; } }
         .view-toggle-btn:active { transform:scale(0.95); }
@@ -352,7 +347,7 @@
         .result-swatch-row { display:flex; align-items:center; justify-content:center; gap:0.4rem; margin-bottom:0.6rem; font-size:0.72rem; color:#888; }
         .result-swatch { width:16px; height:16px; border-radius:50%; border:1px solid #2C2C2C; display:inline-block; flex-shrink:0; }
         .result-price { font-size:0.85rem; font-weight:700; color:#FF9B85; }
-        .add-to-cart-btn { background:white; border:2px solid #2C2C2C; padding:0.4rem 0.9rem; font-family:'Comfortaa',cursive; font-size:0.72rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); white-space:nowrap; }
+        .add-to-cart-btn { background:white; border:2px solid #2C2C2C; padding:0.4rem 0.9rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:0.72rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); white-space:nowrap; }
         @media (hover:hover) and (pointer:fine) { .add-to-cart-btn:hover { background:#FF9B85; color:white; border-color:#FF9B85; } }
         .add-to-cart-btn:active { transform:scale(0.95); }
         .add-to-cart-btn.added { background:#2C2C2C; color:white; border-color:#2C2C2C; }
@@ -383,7 +378,7 @@
         .cart-footer-inner { max-width:760px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
         .cart-total-label { font-size:0.85rem; color:#888; }
         .cart-total-value { font-size:1.3rem; font-weight:700; }
-        .checkout-btn { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.8rem 2.2rem; font-family:'Comfortaa',cursive; font-size:1rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); }
+        .checkout-btn { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.8rem 2.2rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:1rem; font-weight:700; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); }
         @media (hover:hover) and (pointer:fine) { .checkout-btn:hover { background:#C05A44; border-color:#C05A44; } }
         .checkout-btn:active { transform:scale(0.97); }
 
@@ -414,8 +409,6 @@
             <span class="header-search-icon">⚲</span>
             <span class="header-search-placeholder">What are you shopping for?</span>
         </button>
-        <button class="header-search-mode-btn" onclick="openSearch('text')">Search by Text</button>
-        <button class="header-search-mode-btn" onclick="openSearch('draw')">Search by Scribble</button>
     </div>
     <div class="header-right">
         <button class="cart-btn" id="cartBtn" onclick="openCart()" aria-label="Cart">
@@ -1313,7 +1306,7 @@ window.addEventListener('click', function(e) {
 
 // ---- QUERY SYSTEM (SEARCH) ----
 
-const TYPE_EMOJI = { top:'👕', bottom:'👖', dress:'👗', shoes:'👟', outerwear:'🧥' };
+const TYPE_EMOJI = { top:'👕', bottom:'👖', dress:'👗', shoes:'👟', outerwear:'🧥', accessory:'👜' };
 
 const BRAND_LOGOS = {
     'Hollister': 'https://logos-world.net/wp-content/uploads/2020/12/Hollister-Logo.png',
@@ -1322,39 +1315,98 @@ const BRAND_LOGOS = {
     'American Eagle': 'https://logos-world.net/wp-content/uploads/2020/11/American-Eagle-Logo.png',
     'Shein': 'https://logos-world.net/wp-content/uploads/2022/04/Shein-Logo.png',
     'Hoka': 'https://logos-world.net/wp-content/uploads/2021/03/Hoka-Logo.png'
+    // Other brands below (Zara, Nike, Free People, Urban Outfitters, Adidas, Reformation,
+    // Lululemon, Gap, Madewell) have no logo on file, so cards fall back to the type emoji —
+    // safer than guessing at logo URLs that might 404.
 };
 
 const SEARCH_CATALOG = [
+    // Hollister
     { name:'White Tank Top', brand:'Hollister', type:'top', colorName:'White', hex:'#FFFFFF', price:'$22.00' },
     { name:'Black Bomber Jacket', brand:'Hollister', type:'outerwear', colorName:'Black', hex:'#1A1A1A', price:'$58.00' },
     { name:'Blue Denim Shorts', brand:'Hollister', type:'bottom', colorName:'Blue', hex:'#4A6FA5', price:'$34.00' },
     { name:'Beige Linen Top', brand:'Hollister', type:'top', colorName:'Beige', hex:'#E8DCC8', price:'$28.00' },
     { name:'Coral Halter Top', brand:'Hollister', type:'top', colorName:'Coral', hex:'#FF9B85', price:'$26.00' },
     { name:'Sage Green Cargo Pants', brand:'Hollister', type:'bottom', colorName:'Sage Green', hex:'#B2C9AB', price:'$46.00' },
+    { name:'Ribbed Knit Beanie', brand:'Hollister', type:'accessory', colorName:'Charcoal', hex:'#3A3A3A', price:'$14.00' },
+    // Vans
     { name:'Black Low-Top Sneakers', brand:'Vans', type:'shoes', colorName:'Black', hex:'#1A1A1A', price:'$65.00' },
     { name:'White Slip-Ons', brand:'Vans', type:'shoes', colorName:'White', hex:'#FFFFFF', price:'$55.00' },
     { name:'Checkerboard Sneakers', brand:'Vans', type:'shoes', colorName:'Black & White', hex:'#2C2C2C', price:'$60.00' },
     { name:'Sage Green Sneakers', brand:'Vans', type:'shoes', colorName:'Sage Green', hex:'#B2C9AB', price:'$62.00' },
     { name:'Coral High-Tops', brand:'Vans', type:'shoes', colorName:'Coral', hex:'#FF9B85', price:'$70.00' },
+    { name:'Canvas Tote Bag', brand:'Vans', type:'accessory', colorName:'Natural', hex:'#DDD3BE', price:'$25.00' },
+    // Aritzia
     { name:'White Linen Dress', brand:'Aritzia', type:'dress', colorName:'White', hex:'#FFFFFF', price:'$98.00' },
     { name:'Black Wide-Leg Trousers', brand:'Aritzia', type:'bottom', colorName:'Black', hex:'#1A1A1A', price:'$88.00' },
     { name:'Blush Silk Cami', brand:'Aritzia', type:'top', colorName:'Blush', hex:'#F7CAC9', price:'$54.00' },
     { name:'Lavender Knit Sweater', brand:'Aritzia', type:'top', colorName:'Lavender', hex:'#C9A9DD', price:'$68.00' },
     { name:'Camel Trench Coat', brand:'Aritzia', type:'outerwear', colorName:'Camel', hex:'#C19A6B', price:'$148.00' },
     { name:'Beige Trench Coat', brand:'Aritzia', type:'outerwear', colorName:'Beige', hex:'#E8DCC8', price:'$158.00' },
+    { name:'Leather Crossbody Bag', brand:'Aritzia', type:'accessory', colorName:'Black', hex:'#1A1A1A', price:'$120.00' },
+    // American Eagle
     { name:'Blue Mom Jeans', brand:'American Eagle', type:'bottom', colorName:'Blue', hex:'#5B7FA6', price:'$54.00' },
     { name:'White Crop Tee', brand:'American Eagle', type:'top', colorName:'White', hex:'#FFFFFF', price:'$18.00' },
     { name:'Denim Jacket', brand:'American Eagle', type:'outerwear', colorName:'Blue', hex:'#6E8FB0', price:'$60.00' },
     { name:'Mustard Hoodie', brand:'American Eagle', type:'top', colorName:'Mustard', hex:'#E1AD01', price:'$42.00' },
     { name:'Coral Tank Top', brand:'American Eagle', type:'top', colorName:'Coral', hex:'#FF9B85', price:'$16.00' },
+    { name:'Baseball Cap', brand:'American Eagle', type:'accessory', colorName:'Navy', hex:'#2E4057', price:'$20.00' },
+    // Shein
     { name:'Rust Wrap Dress', brand:'Shein', type:'dress', colorName:'Rust', hex:'#C0532A', price:'$24.00' },
     { name:'Coral Halter Top', brand:'Shein', type:'top', colorName:'Coral', hex:'#FF9B85', price:'$12.00' },
     { name:'Sky Blue Sundress', brand:'Shein', type:'dress', colorName:'Sky Blue', hex:'#A8D8EA', price:'$19.00' },
     { name:'Black Bodycon Skirt', brand:'Shein', type:'bottom', colorName:'Black', hex:'#1A1A1A', price:'$15.00' },
     { name:'Lavender Slip Dress', brand:'Shein', type:'dress', colorName:'Lavender', hex:'#C9A9DD', price:'$17.00' },
+    { name:'Gold Hoop Earrings', brand:'Shein', type:'accessory', colorName:'Gold', hex:'#D4AF37', price:'$6.00' },
+    // Hoka
     { name:'Coral Running Shoes', brand:'Hoka', type:'shoes', colorName:'Coral', hex:'#FF9B85', price:'$145.00' },
     { name:'White Trail Shoes', brand:'Hoka', type:'shoes', colorName:'White', hex:'#FFFFFF', price:'$150.00' },
-    { name:'Sage Green Sneakers', brand:'Hoka', type:'shoes', colorName:'Sage Green', hex:'#B2C9AB', price:'$140.00' }
+    { name:'Sage Green Sneakers', brand:'Hoka', type:'shoes', colorName:'Sage Green', hex:'#B2C9AB', price:'$140.00' },
+    // Zara
+    { name:'Black Blazer', brand:'Zara', type:'outerwear', colorName:'Black', hex:'#1A1A1A', price:'$89.00' },
+    { name:'Ivory Satin Slip Dress', brand:'Zara', type:'dress', colorName:'Ivory', hex:'#F2EEE4', price:'$59.90' },
+    { name:'Pleated Midi Skirt', brand:'Zara', type:'bottom', colorName:'Chocolate', hex:'#4A2E22', price:'$49.90' },
+    { name:'Ribbed Turtleneck', brand:'Zara', type:'top', colorName:'Cream', hex:'#F0E6D2', price:'$29.90' },
+    { name:'Structured Tote', brand:'Zara', type:'accessory', colorName:'Tan', hex:'#C8A574', price:'$45.90' },
+    // Nike
+    { name:'Air Force 1 Sneakers', brand:'Nike', type:'shoes', colorName:'White', hex:'#FFFFFF', price:'$115.00' },
+    { name:'Dri-FIT Running Shorts', brand:'Nike', type:'bottom', colorName:'Black', hex:'#1A1A1A', price:'$35.00' },
+    { name:'Windrunner Jacket', brand:'Nike', type:'outerwear', colorName:'Royal Blue', hex:'#2255A4', price:'$110.00' },
+    { name:'Sportswear Crop Hoodie', brand:'Nike', type:'top', colorName:'Gray', hex:'#9B9B9B', price:'$65.00' },
+    { name:'Everyday Crew Socks', brand:'Nike', type:'accessory', colorName:'White', hex:'#FFFFFF', price:'$14.00' },
+    // Free People
+    { name:'Boho Maxi Dress', brand:'Free People', type:'dress', colorName:'Terracotta', hex:'#B5603F', price:'$128.00' },
+    { name:'Cropped Denim Vest', brand:'Free People', type:'outerwear', colorName:'Light Wash', hex:'#B8C4D0', price:'$78.00' },
+    { name:'Fringe Suede Bag', brand:'Free People', type:'accessory', colorName:'Cognac', hex:'#8B4A2B', price:'$98.00' },
+    { name:'Flowy Off-Shoulder Top', brand:'Free People', type:'top', colorName:'Cream', hex:'#F0E6D2', price:'$68.00' },
+    // Urban Outfitters
+    { name:'Oversized Flannel Shirt', brand:'Urban Outfitters', type:'top', colorName:'Red Plaid', hex:'#8C2F2F', price:'$49.00' },
+    { name:'Wide-Leg Corduroy Pants', brand:'Urban Outfitters', type:'bottom', colorName:'Olive', hex:'#5E6B4A', price:'$59.00' },
+    { name:'Chunky Platform Boots', brand:'Urban Outfitters', type:'shoes', colorName:'Black', hex:'#1A1A1A', price:'$110.00' },
+    { name:'Beaded Statement Necklace', brand:'Urban Outfitters', type:'accessory', colorName:'Multicolor', hex:'#D6A0C4', price:'$22.00' },
+    // Adidas
+    { name:'Samba OG Sneakers', brand:'Adidas', type:'shoes', colorName:'White & Black', hex:'#FFFFFF', price:'$100.00' },
+    { name:'Three-Stripe Track Jacket', brand:'Adidas', type:'outerwear', colorName:'Navy', hex:'#22314F', price:'$75.00' },
+    { name:'Firebird Track Pants', brand:'Adidas', type:'bottom', colorName:'Black', hex:'#1A1A1A', price:'$65.00' },
+    { name:'Crewneck Logo Tee', brand:'Adidas', type:'top', colorName:'White', hex:'#FFFFFF', price:'$28.00' },
+    // Reformation
+    { name:'Linen Wrap Dress', brand:'Reformation', type:'dress', colorName:'Sage', hex:'#A8B89A', price:'$168.00' },
+    { name:'Vintage-Wash Jeans', brand:'Reformation', type:'bottom', colorName:'Mid Blue', hex:'#5B7FA6', price:'$128.00' },
+    { name:'Silk Cami Top', brand:'Reformation', type:'top', colorName:'Champagne', hex:'#E8D9B5', price:'$98.00' },
+    { name:'Raffia Woven Bag', brand:'Reformation', type:'accessory', colorName:'Natural', hex:'#DDD3BE', price:'$88.00' },
+    // Lululemon
+    { name:'Align High-Rise Leggings', brand:'Lululemon', type:'bottom', colorName:'Black', hex:'#1A1A1A', price:'$98.00' },
+    { name:'Define Jacket', brand:'Lululemon', type:'outerwear', colorName:'Sage Green', hex:'#B2C9AB', price:'$128.00' },
+    { name:'Scuba Half-Zip Hoodie', brand:'Lululemon', type:'top', colorName:'Heather Gray', hex:'#A8A8A8', price:'$118.00' },
+    { name:'Everywhere Belt Bag', brand:'Lululemon', type:'accessory', colorName:'Black', hex:'#1A1A1A', price:'$38.00' },
+    // Gap
+    { name:'Classic Denim Jacket', brand:'Gap', type:'outerwear', colorName:'Medium Wash', hex:'#6E8FB0', price:'$68.00' },
+    { name:'Vintage Soft Tee', brand:'Gap', type:'top', colorName:'White', hex:'#FFFFFF', price:'$16.50' },
+    { name:'Straight Leg Khakis', brand:'Gap', type:'bottom', colorName:'Khaki', hex:'#C3B091', price:'$49.50' },
+    // Madewell
+    { name:'The Perfect Vintage Jean', brand:'Madewell', type:'bottom', colorName:'Dark Wash', hex:'#2E4057', price:'$128.00' },
+    { name:'Transport Tote', brand:'Madewell', type:'accessory', colorName:'Cognac', hex:'#8B4A2B', price:'$168.00' },
+    { name:'Cloud Cardigan', brand:'Madewell', type:'top', colorName:'Oatmeal', hex:'#DCD3C3', price:'$88.00' }
 ];
 
 const SWATCH_COLORS = ['#2C2C2C','#FFFFFF','#FF9B85','#C0532A','#E1AD01','#B2C9AB','#A8D8EA','#C9A9DD','#F7CAC9','#E8DCC8'];
