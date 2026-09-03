@@ -251,7 +251,7 @@
         .option-group input[type=range] { width:160px; accent-color:#FF9B85; }
         .option-value { font-size:0.85rem; font-weight:700; color:#FF9B85; }
         .option-group select { border:2px solid #2C2C2C; padding:0.5rem 0.7rem; font-family:'Comfortaa',cursive; font-weight:600; outline:none; background:white; cursor:pointer; }
-        .send-row { display:flex; justify-content:flex-end; margin-bottom:1rem; }
+        .send-row { display:flex; justify-content:center; margin-bottom:1rem; }
         .btn-send-query { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.85rem 2.6rem; font-family:'Comfortaa',cursive; font-size:1.05rem; font-weight:700; cursor:pointer; transition:all 0.2s; letter-spacing:0.03em; }
         .btn-send-query:hover { background:#C05A44; border-color:#C05A44; }
         .search-results-meta { font-size:0.9rem; color:#888; margin:2rem 0 1rem; }
@@ -284,10 +284,10 @@
 </div>
 
 <div class="sidebar" id="sidebar">
+    <div class="sidebar-item" onclick="openSearch()">SEARCH</div>
     <div class="sidebar-item" onclick="showPopup()">YOUR CLOSET</div>
     <div class="sidebar-item" onclick="openClosetAnalysis()">CLOSET ANALYSES</div>
     <div class="sidebar-item" onclick="openAlbum()">ALBUM</div>
-    <div class="sidebar-item" onclick="openSearch()">SEARCH</div>
     <div class="sidebar-item" onclick="scrollToSection('recommendations')">NEW RELEASES</div>
     <div class="sidebar-item" onclick="scrollToSection('purchases')">PURCHASES</div>
 </div>
@@ -482,7 +482,7 @@
             </div>
 
             <div class="send-row">
-                <button class="btn-send-query" onclick="sendQuery()">Send to Sync →</button>
+                <button class="btn-send-query" onclick="sendQuery()">Enter Search</button>
             </div>
 
             <div id="searchResultsMeta"></div>
