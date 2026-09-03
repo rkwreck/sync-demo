@@ -51,7 +51,7 @@
         .section-title { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:2.5rem; font-weight:400; letter-spacing:0.05em; color:#2C2C2C; }
         .see-all { font-size:1.3rem; font-weight:500; text-decoration:underline; cursor:pointer; color:#2C2C2C; transition:color 0.2s ease; }
         @media (hover:hover) and (pointer:fine) { .see-all:hover { color:white; } }
-        .brands-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem; }
+        .brands-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:1.4rem; }
         .brand-box { background:white; border:1.5px solid #ECECEC; padding:2rem; text-align:center; transition:transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out); }
         @media (hover:hover) and (pointer:fine) { .brand-box:hover { transform:translateY(-5px); } }
         .brand-box:active { transform:scale(0.98); }
@@ -65,7 +65,7 @@
         .brand-item-name { font-weight:400; }
         .brand-item-stats { color:#666; font-weight:400; }
         .recent-purchases { padding:4rem 2rem; background:#FFFFFF; }
-        .purchases-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem; }
+        .purchases-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:1.4rem; }
         .purchase-box { background:white; border:1.5px solid #ECECEC; padding:2rem; text-align:center; transition:transform 200ms var(--ease-out); }
         @media (hover:hover) and (pointer:fine) { .purchase-box:hover { transform:translateY(-5px); } }
         .purchase-box:active { transform:scale(0.98); }
@@ -155,9 +155,12 @@
         .header-search-icon { font-size:1rem; color:#FF9B85; flex-shrink:0; }
         .header-search-placeholder { color:#AAA; font-size:0.92rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
         .header-right { display:flex; align-items:center; gap:1.1rem; flex-shrink:0; }
-        .cart-btn { position:relative; background:none; border:none; cursor:pointer; font-size:1.35rem; padding:0.3rem; line-height:1; transition:transform 160ms var(--ease-out); }
+        .cart-btn { position:relative; background:none; border:none; cursor:pointer; padding:0.3rem; line-height:0; color:#2C2C2C; transition:transform 160ms var(--ease-out), color 200ms ease; }
+        @media (hover:hover) and (pointer:fine) { .cart-btn:hover { color:#FF9B85; } }
         .cart-btn:active { transform:scale(0.9); }
-        .cart-count { position:absolute; top:-2px; right:-4px; background:#FF9B85; color:white; font-size:0.62rem; font-weight:400; border-radius:50%; min-width:16px; height:16px; display:none; align-items:center; justify-content:center; padding:0 3px; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; }
+        .search-cart-btn { margin-left:auto; }
+        .cart-btn:active { transform:scale(0.9); }
+        .cart-count { position:absolute; top:-3px; right:-5px; background:#FF9B85; color:white; font-size:0.62rem; font-weight:400; border-radius:999px; min-width:17px; height:17px; display:none; align-items:center; justify-content:center; padding:0 4px; line-height:1; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; }
         .cart-count.show { display:flex; }
         .login-btn { background:#FF9B85; border:2px solid #FF9B85; color:white; padding:0.55rem 1.5rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:1rem; font-weight:400; cursor:pointer; transition:background-color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); letter-spacing:0.02em; }
         @media (hover:hover) and (pointer:fine) { .login-btn:hover { background:#ff8570; border-color:#ff8570; } }
@@ -325,29 +328,26 @@
         .view-toggle-btn.active { background:#FF9B85; color:white; border-color:#FF9B85; }
         @media (hover:hover) and (pointer:fine) { .view-toggle-btn:hover:not(.active) { background:#F0F0F0; } }
         .view-toggle-btn:active { transform:scale(0.95); }
-        .search-results-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:1.2rem; padding-bottom:2rem; }
-        .search-results-grid.card-view { grid-template-columns:1fr; max-width:640px; margin:0 auto; gap:1rem; }
-        .result-card { background:white; border:1.5px solid #ECECEC; padding:1.3rem 1rem; text-align:center; transition:transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out); cursor:default; }
-        @media (hover:hover) and (pointer:fine) { .result-card:hover { transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,0.1); } }
-        .result-card:active { transform:scale(0.98); }
-        .search-results-grid.card-view .result-card { display:flex; align-items:center; gap:1.3rem; text-align:left; padding:1rem 1.4rem; }
-        @media (hover:hover) and (pointer:fine) { .search-results-grid.card-view .result-card:hover { transform:translateX(2px); } }
-        .result-card-media { flex-shrink:0; }
-        .search-results-grid.card-view .result-card-media { display:flex; flex-direction:column; align-items:center; width:64px; }
-        .result-card-details { flex:1; min-width:0; }
-        .search-results-grid.card-view .result-swatch-row,
-        .search-results-grid.card-view .result-name,
-        .search-results-grid.card-view .result-brand { justify-content:flex-start; text-align:left; }
-        .result-card-footer { display:flex; align-items:center; justify-content:center; gap:0.8rem; margin-top:0.6rem; }
-        .search-results-grid.card-view .result-card-footer { justify-content:space-between; margin-top:0; flex-shrink:0; }
-        .result-emoji { font-size:2.6rem; margin-bottom:0.7rem; }
-        .search-results-grid.card-view .result-emoji { margin-bottom:0; }
-        .result-name { font-size:0.85rem; font-weight:400; margin-bottom:0.3rem; line-height:1.3; }
-        .result-brand { font-size:0.74rem; color:#999; margin-bottom:0.6rem; }
-        .result-swatch-row { display:flex; align-items:center; justify-content:center; gap:0.4rem; margin-bottom:0.6rem; font-size:0.72rem; color:#888; }
-        .result-swatch { width:16px; height:16px; border-radius:50%; border:1px solid #2C2C2C; display:inline-block; flex-shrink:0; }
-        .result-price { font-size:0.85rem; font-weight:400; color:#FF9B85; }
-        .add-to-cart-btn { background:white; border:1.5px solid #ECECEC; padding:0.4rem 0.9rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:0.72rem; font-weight:400; cursor:pointer; transition:background-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); white-space:nowrap; }
+        .search-results-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:1.4rem; padding-bottom:2rem; }
+        .search-results-grid.card-view { grid-template-columns:1fr; max-width:660px; margin:0 auto; gap:1rem; }
+        .result-card { background:white; border:1px solid #EEEEEE; border-radius:16px; overflow:hidden; text-align:left; padding:0; transition:transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out); }
+        @media (hover:hover) and (pointer:fine) { .result-card:hover { transform:translateY(-4px); box-shadow:0 10px 28px rgba(0,0,0,0.08); } }
+        .result-art { display:block; width:100%; aspect-ratio:5/6; object-fit:cover; background:#F7F5F3; }
+        .result-body { padding:0.85rem 1rem 1rem; }
+        .result-brand { font-size:0.66rem; letter-spacing:0.11em; text-transform:uppercase; color:#A0A0A0; margin-bottom:0.35rem; }
+        .result-name { font-size:0.95rem; color:#2C2C2C; margin-bottom:0.45rem; line-height:1.3; }
+        .result-swatch-row { display:flex; align-items:center; gap:0.4rem; margin-bottom:0.7rem; font-size:0.74rem; color:#999; }
+        .result-swatch { width:13px; height:13px; border-radius:50%; border:1px solid rgba(0,0,0,.15); display:inline-block; flex-shrink:0; }
+        .result-delta { margin-left:0.3rem; color:#FF9B85; }
+        .result-card-footer { display:flex; align-items:center; justify-content:space-between; gap:0.7rem; }
+        .result-price { font-size:0.95rem; color:#2C2C2C; }
+        .purchase-date { font-size:0.76rem; color:#A0A0A0; }
+        /* Card (list) view */
+        .search-results-grid.card-view .result-card { display:flex; align-items:stretch; }
+        .search-results-grid.card-view .result-art { width:120px; flex-shrink:0; aspect-ratio:auto; height:auto; }
+        .search-results-grid.card-view .result-body { flex:1; display:flex; flex-direction:column; justify-content:center; padding:1.1rem 1.3rem; }
+        @media (hover:hover) and (pointer:fine) { .search-results-grid.card-view .result-card:hover { transform:translateX(3px); } }
+        .add-to-cart-btn { background:white; border:1.5px solid #ECECEC; padding:0.42rem 0.95rem; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif; font-size:0.74rem; font-weight:400; cursor:pointer; transition:background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); white-space:nowrap; }
         @media (hover:hover) and (pointer:fine) { .add-to-cart-btn:hover { background:#FF9B85; color:white; border-color:#FF9B85; } }
         .add-to-cart-btn:active { transform:scale(0.95); }
         .add-to-cart-btn.added { background:#FF9B85; color:white; border-color:#FF9B85; }
@@ -366,7 +366,8 @@
         .cart-empty { text-align:center; padding:5rem 2rem; color:#999; }
         .cart-empty-icon { font-size:4rem; margin-bottom:1rem; }
         .cart-row { display:flex; align-items:center; gap:1.2rem; padding:1.2rem 0; border-bottom:2px solid #F0F0F0; }
-        .cart-row-media { font-size:2.2rem; flex-shrink:0; width:48px; text-align:center; }
+        .cart-row-media { flex-shrink:0; width:56px; border-radius:10px; overflow:hidden; line-height:0; }
+        .cart-row-media .result-art { width:56px; aspect-ratio:5/6; }
         .cart-row-details { flex:1; min-width:0; }
         .cart-row-name { font-weight:400; font-size:0.95rem; margin-bottom:0.2rem; }
         .cart-row-brand { font-size:0.8rem; color:#999; }
@@ -425,7 +426,7 @@
     </div>
     <div class="header-right">
         <button class="cart-btn" id="cartBtn" onclick="openCart()" aria-label="Cart">
-            <span>🛍</span>
+            <svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18.5" cy="20" r="1.4"/><path d="M1.5 2.5h3.2l2.6 12.1a1.6 1.6 0 0 0 1.6 1.3h9.1a1.6 1.6 0 0 0 1.6-1.3L21.5 7H6"/></svg>
             <span class="cart-count" id="cartCount">0</span>
         </button>
         <button class="login-btn" id="loginBtn" onclick="openLoginPopup()">Log In</button>
@@ -462,14 +463,7 @@
         <h2 class="section-title">New<br>Recommendations</h2>
         <div class="see-all" onclick="showSeeAllPopup()">See all →</div>
     </div>
-    <div class="brands-grid">
-        <div class="brand-box" style="--i:0"><img src="https://logos-world.net/wp-content/uploads/2020/12/Hollister-Logo.png" alt="Hollister" class="brand-logo"><div class="brand-emoji">👕</div></div>
-        <div class="brand-box" style="--i:1"><img src="https://logos-world.net/wp-content/uploads/2020/04/Vans-Logo.png" alt="Vans" class="brand-logo"><div class="brand-emoji">👟</div></div>
-        <div class="brand-box" style="--i:2"><img src="https://logos-world.net/wp-content/uploads/2022/03/Aritzia-Logo.png" alt="Aritzia" class="brand-logo"><div class="brand-emoji">👚</div></div>
-        <div class="brand-box" style="--i:3"><img src="https://logos-world.net/wp-content/uploads/2020/11/American-Eagle-Logo.png" alt="American Eagle" class="brand-logo"><div class="brand-emoji">👖</div></div>
-        <div class="brand-box" style="--i:4"><img src="https://logos-world.net/wp-content/uploads/2022/04/Shein-Logo.png" alt="Shein" class="brand-logo"><div class="brand-emoji">👗</div></div>
-        <div class="brand-box" style="--i:5"><img src="https://logos-world.net/wp-content/uploads/2021/03/Hoka-Logo.png" alt="Hoka" class="brand-logo"><div class="brand-emoji">👟</div></div>
-    </div>
+    <div class="brands-grid" id="brandsGrid"></div>
 </section>
 
 <section class="closet-analysis">
@@ -484,14 +478,7 @@
 
 <section class="recent-purchases" id="purchases">
     <div class="section-header"><h2 class="section-title">Recent Purchases</h2></div>
-    <div class="purchases-grid">
-        <div class="purchase-box" style="--i:0"><img src="https://logos-world.net/wp-content/uploads/2020/04/Vans-Logo.png" alt="Vans" class="brand-logo"><div class="brand-emoji">👟</div><div class="purchase-date">Purchased: Jan 15, 2026</div></div>
-        <div class="purchase-box" style="--i:1"><img src="https://logos-world.net/wp-content/uploads/2020/12/Hollister-Logo.png" alt="Hollister" class="brand-logo"><div class="brand-emoji">👕</div><div class="purchase-date">Purchased: Jan 10, 2026</div></div>
-        <div class="purchase-box" style="--i:2"><img src="https://logos-world.net/wp-content/uploads/2022/03/Aritzia-Logo.png" alt="Aritzia" class="brand-logo"><div class="brand-emoji">🧥</div><div class="purchase-date">Purchased: Dec 28, 2025</div></div>
-        <div class="purchase-box" style="--i:3"><img src="https://logos-world.net/wp-content/uploads/2021/03/Hoka-Logo.png" alt="Hoka" class="brand-logo"><div class="brand-emoji">👟</div><div class="purchase-date">Purchased: Dec 20, 2025</div></div>
-        <div class="purchase-box" style="--i:4"><img src="https://logos-world.net/wp-content/uploads/2022/04/Shein-Logo.png" alt="Shein" class="brand-logo"><div class="brand-emoji">👗</div><div class="purchase-date">Purchased: Dec 15, 2025</div></div>
-        <div class="purchase-box" style="--i:5"><img src="https://logos-world.net/wp-content/uploads/2020/11/American-Eagle-Logo.png" alt="American Eagle" class="brand-logo"><div class="brand-emoji">👖</div><div class="purchase-date">Purchased: Dec 5, 2025</div></div>
-    </div>
+    <div class="purchases-grid" id="purchasesGrid"></div>
 </section>
 
 <footer class="footer">
@@ -574,6 +561,10 @@
     <div class="search-header">
         <span class="search-back" onclick="closeSearch()">←</span>
         <span class="search-header-title">Search</span>
+        <button class="cart-btn search-cart-btn" onclick="openCart()" aria-label="Cart">
+            <svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18.5" cy="20" r="1.4"/><path d="M1.5 2.5h3.2l2.6 12.1a1.6 1.6 0 0 0 1.6 1.3h9.1a1.6 1.6 0 0 0 1.6-1.3L21.5 7H6"/></svg>
+            <span class="cart-count" id="searchCartCount">0</span>
+        </button>
     </div>
     <div class="search-tabs">
         <div class="search-tab active" data-mode="text" onclick="setSearchMode('text')">Chat / Text</div>
@@ -1319,19 +1310,36 @@ window.addEventListener('click', function(e) {
 
 // ---- QUERY SYSTEM (SEARCH) ----
 
-const TYPE_EMOJI = { top:'👕', bottom:'👖', dress:'👗', shoes:'👟', outerwear:'🧥', accessory:'👜' };
+// ---- PRODUCT ARTWORK ----
+// Generated inline SVG garment silhouettes, tinted with each item's real catalog color.
+// Local + deterministic: nothing to 404, and the color-sensitive search is visible on the card.
 
-const BRAND_LOGOS = {
-    'Hollister': 'https://logos-world.net/wp-content/uploads/2020/12/Hollister-Logo.png',
-    'Vans': 'https://logos-world.net/wp-content/uploads/2020/04/Vans-Logo.png',
-    'Aritzia': 'https://logos-world.net/wp-content/uploads/2022/03/Aritzia-Logo.png',
-    'American Eagle': 'https://logos-world.net/wp-content/uploads/2020/11/American-Eagle-Logo.png',
-    'Shein': 'https://logos-world.net/wp-content/uploads/2022/04/Shein-Logo.png',
-    'Hoka': 'https://logos-world.net/wp-content/uploads/2021/03/Hoka-Logo.png'
-    // Other brands below (Zara, Nike, Free People, Urban Outfitters, Adidas, Reformation,
-    // Lululemon, Gap, Madewell) have no logo on file, so cards fall back to the type emoji —
-    // safer than guessing at logo URLs that might 404.
+const GARMENT_PATHS = {
+    top:       '<path d="M70 62 L58 52 Q100 32 142 52 L130 62 L148 80 L140 102 L128 92 L128 212 Q100 220 72 212 L72 92 L60 102 L52 80 Z"/>',
+    bottom:    '<path d="M66 60 L134 60 L142 214 L112 214 L100 128 L88 214 L58 214 Z"/>',
+    dress:     '<path d="M72 58 L60 48 Q100 30 140 48 L128 58 L138 86 L126 80 L154 214 Q100 232 46 214 L74 80 L62 86 Z"/>',
+    outerwear: '<path d="M66 58 L52 48 Q100 30 148 48 L134 58 L152 84 L140 96 L140 214 L60 214 L60 96 L48 84 Z"/><path d="M100 60 L100 214" stroke="rgba(0,0,0,.18)" stroke-width="2" fill="none"/>',
+    shoes:     '<path d="M38 168 L38 130 Q38 120 52 120 L72 120 L96 142 L142 150 Q168 154 170 170 L170 176 L38 176 Z"/>',
+    accessory: '<path d="M60 104 L140 104 L150 206 L50 206 Z"/><path d="M80 104 Q80 70 100 70 Q120 70 120 104" fill="none" stroke="currentColor" stroke-width="7"/>'
 };
+
+function isPale(hex) {
+    const h = String(hex).replace('#', '');
+    if (h.length !== 6) return false;
+    const r = parseInt(h.slice(0,2),16), g = parseInt(h.slice(2,4),16), b = parseInt(h.slice(4,6),16);
+    return (0.299*r + 0.587*g + 0.114*b) > 225;
+}
+
+function productArt(item) {
+    const shape = GARMENT_PATHS[item.type] || GARMENT_PATHS.top;
+    const stroke = isPale(item.hex) ? 'rgba(0,0,0,.18)' : 'rgba(0,0,0,.10)';
+    const sole = item.type === 'shoes'
+        ? '<rect x="38" y="172" width="132" height="13" rx="6.5" fill="#FFFFFF" stroke="rgba(0,0,0,.14)"/>'
+        : '';
+    return '<svg class="result-art" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' +
+        item.name + '"><rect width="200" height="240" fill="#F7F5F3"/><g fill="' + item.hex +
+        '" color="' + item.hex + '" stroke="' + stroke + '" stroke-width="1.5">' + shape + '</g>' + sole + '</svg>';
+}
 
 const SEARCH_CATALOG = [
     // Hollister
@@ -1592,12 +1600,26 @@ function setResultsView(view) {
     document.getElementById('searchResultsGrid').classList.toggle('card-view', view === 'card');
 }
 
+function productCardHTML(item, colorSensitive) {
+    const delta = (colorSensitive && item.dist !== undefined) ? '<span class="result-delta">\u0394' + item.dist + '</span>' : '';
+    return productArt(item) +
+        '<div class="result-body">' +
+            '<div class="result-brand">' + item.brand + '</div>' +
+            '<div class="result-name">' + item.name + '</div>' +
+            '<div class="result-swatch-row"><span class="result-swatch" style="background:' + item.hex + ';"></span>' + item.colorName + delta + '</div>' +
+            '<div class="result-card-footer">' +
+                '<div class="result-price">' + item.price + '</div>' +
+                '<button class="add-to-cart-btn" type="button">Add to Cart</button>' +
+            '</div>' +
+        '</div>';
+}
+
 function renderSearchResults(results, queryDesc, timeframe, colorSensitive) {
     const meta = document.getElementById('searchResultsMeta');
     const grid = document.getElementById('searchResultsGrid');
     const toggle = document.getElementById('resultsViewToggle');
     meta.className = 'search-results-meta';
-    meta.textContent = 'Showing ' + results.length + ' result' + (results.length !== 1 ? 's' : '') + ' for ' + queryDesc + ' • ' + TIMEFRAME_LABELS[timeframe];
+    meta.textContent = 'Showing ' + results.length + ' result' + (results.length !== 1 ? 's' : '') + ' for ' + queryDesc + ' \u2022 ' + TIMEFRAME_LABELS[timeframe];
     toggle.classList.toggle('show', results.length > 0);
     grid.classList.toggle('card-view', resultsView === 'card');
     grid.innerHTML = '';
@@ -1605,29 +1627,73 @@ function renderSearchResults(results, queryDesc, timeframe, colorSensitive) {
         const card = document.createElement('div');
         card.className = 'result-card';
         card.style.setProperty('--i', i);
-        const logo = BRAND_LOGOS[item.brand];
-        const media = logo
-            ? '<img src="' + logo + '" alt="' + item.brand + '" style="height:30px;object-fit:contain;margin-bottom:0.4rem;"><div style="font-size:1.5rem;margin-bottom:0.4rem;">' + TYPE_EMOJI[item.type] + '</div>'
-            : '<div class="result-emoji">' + TYPE_EMOJI[item.type] + '</div>';
-        const swatchRow = '<div class="result-swatch-row"><span class="result-swatch" style="background:' + item.hex + ';"></span>' + item.colorName + (colorSensitive && item.dist !== undefined ? ' · Δ' + item.dist : '') + '</div>';
-        card.innerHTML =
-            '<div class="result-card-media">' + media + '</div>' +
-            '<div class="result-card-details">' +
-                '<div class="result-name">' + item.name + '</div>' +
-                '<div class="result-brand">' + item.brand + '</div>' +
-                swatchRow +
-                '<div class="result-card-footer">' +
-                    '<div class="result-price">' + item.price + '</div>' +
-                    '<button class="add-to-cart-btn" type="button">Add to Cart</button>' +
-                '</div>' +
-            '</div>';
+        card.innerHTML = productCardHTML(item, colorSensitive);
         card.querySelector('.add-to-cart-btn').addEventListener('click', (e) => addToCart(item, e.currentTarget));
         grid.appendChild(card);
     });
 }
 
-// Initialize home analysis list
+// ---- HOME PRODUCT RAILS ----
+function pickCatalog(names) {
+    return names.map(n => SEARCH_CATALOG.find(i => i.name === n && (!n.brand || i.brand === n.brand))).filter(Boolean);
+}
+
+const HOME_RECOMMENDED = [
+    'Coral Halter Top', 'Samba OG Sneakers', 'Blush Silk Cami',
+    'Blue Mom Jeans', 'Sky Blue Sundress', 'Coral Running Shoes'
+];
+
+const HOME_PURCHASES = [
+    { name:'Black Low-Top Sneakers', date:'Jan 15, 2026' },
+    { name:'White Tank Top',         date:'Jan 10, 2026' },
+    { name:'Camel Trench Coat',      date:'Dec 28, 2025' },
+    { name:'White Trail Shoes',      date:'Dec 20, 2025' },
+    { name:'Rust Wrap Dress',        date:'Dec 15, 2025' },
+    { name:'Blue Mom Jeans',         date:'Dec 5, 2025' }
+];
+
+function findItem(name) { return SEARCH_CATALOG.find(i => i.name === name); }
+
+function renderHomeRecommendations() {
+    const grid = document.getElementById('brandsGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    HOME_RECOMMENDED.forEach((name, i) => {
+        const item = findItem(name);
+        if (!item) return;
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        card.style.setProperty('--i', i);
+        card.innerHTML = productCardHTML(item, false);
+        card.querySelector('.add-to-cart-btn').addEventListener('click', (e) => addToCart(item, e.currentTarget));
+        grid.appendChild(card);
+    });
+}
+
+function renderHomePurchases() {
+    const grid = document.getElementById('purchasesGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    HOME_PURCHASES.forEach((entry, i) => {
+        const item = findItem(entry.name);
+        if (!item) return;
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        card.style.setProperty('--i', i);
+        card.innerHTML = productArt(item) +
+            '<div class="result-body">' +
+                '<div class="result-brand">' + item.brand + '</div>' +
+                '<div class="result-name">' + item.name + '</div>' +
+                '<div class="purchase-date">Purchased: ' + entry.date + '</div>' +
+            '</div>';
+        grid.appendChild(card);
+    });
+}
+
+// Initialize home page
 renderHomeBrandList();
+renderHomeRecommendations();
+renderHomePurchases();
 
 // ---- CART ----
 let cart = [];
@@ -1645,9 +1711,12 @@ function addToCart(item, btnEl) {
 }
 
 function updateCartBadge() {
-    const badge = document.getElementById('cartCount');
-    badge.textContent = cart.length;
-    badge.classList.toggle('show', cart.length > 0);
+    ['cartCount', 'searchCartCount'].forEach(id => {
+        const badge = document.getElementById(id);
+        if (!badge) return;
+        badge.textContent = cart.length;
+        badge.classList.toggle('show', cart.length > 0);
+    });
 }
 
 function openCart() {
@@ -1684,10 +1753,7 @@ function renderCart() {
     cart.forEach((item, i) => {
         const row = document.createElement('div');
         row.className = 'cart-row';
-        const logo = BRAND_LOGOS && BRAND_LOGOS[item.brand];
-        const media = logo
-            ? '<img src="' + logo + '" alt="' + item.brand + '" style="max-width:100%;max-height:100%;object-fit:contain;">'
-            : (TYPE_EMOJI && TYPE_EMOJI[item.type] ? TYPE_EMOJI[item.type] : '🛍');
+        const media = productArt(item);
         row.innerHTML =
             '<div class="cart-row-media">' + media + '</div>' +
             '<div class="cart-row-details">' +
